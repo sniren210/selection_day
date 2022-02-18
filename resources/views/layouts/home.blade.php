@@ -58,12 +58,6 @@ die();
             color: #fff;
         }
 
-        .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active,
-        .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
-            color: black;
-            background-color: #a951ff;
-        }
-
     </style>
 
     @yield('css')
@@ -72,16 +66,8 @@ die();
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
-        <!-- Preloader -->
-        @if ($params)
-            <div class="preloader flex-column justify-content-center align-items-center">
-                <img class="animation__shake" src="{{ asset('') }}img/fintch_point.png" alt="fintch_point"
-                    height="60" width="60">
-            </div>
-        @endif
-
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-purple navbar-dark">
+        <nav class="main-header navbar navbar-expand navbar-dark">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -122,13 +108,11 @@ die();
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar bg-purple sidebar-dark-primary ">
+        <aside class="main-sidebar sidebar-dark-primary ">
             <!-- Brand Logo -->
             <a href="{{ url('home') }}" class="brand-link" style="border-color: unset;">
-                <img src="{{ asset('') }}img/fintch_point.png" alt="fintch_point" class="brand-image img-circle "
-                    style="opacity: .8" width="25">
                 <span class="brand-text font-weight-bold"> {{ config('app.name') }}
-                    {{ Auth::user()->level != 1 ? 'Admin' : '' }} </span>
+                </span>
             </a>
 
             <!-- Sidebar -->
@@ -136,7 +120,7 @@ die();
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex" style="border-color: unset;">
                     <div class="image">
-                        <img src="{{ asset('img/profile') }}/{{ Auth::user()->img }}"
+                        <img src="{{ asset('img/profile') }}/{{ Auth::user()->selfi }}"
                             class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
@@ -157,77 +141,8 @@ die();
                             </a>
                         </li>
                         <li class="nav-header">USER</li>
-                        <li class="nav-item">
-                            <a href="{{ url('user') }}"
-                                class="nav-link {{ Request::segment(1) === 'user' ? 'active' : '' }}">
-                                <i class="fas fa-users"></i>
-                                <p>User</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('wallet') }}"
-                                class="nav-link {{ Request::segment(1) === 'wallet' ? 'active' : '' }}">
-                                <i class="fas fa-wallet"></i>
-                                <p>Fintch Point</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('barcode') }}"
-                                class="nav-link {{ Request::segment(1) === 'barcode' ? 'active' : '' }}">
-                                <i class="fas fa-qrcode"></i>
-                                <p>Qr-Code</p>
-                            </a>
-                        </li>
-                        @if (Auth::user()->level != 1)
-                            <li class="nav-item">
-                                <a href="{{ url('top-up') }}"
-                                    class="nav-link {{ Request::segment(1) === 'top-up' ? 'active' : '' }}">
-                                    <i class="fas fa-hand-holding-usd"></i>
-                                    <p>Top Up</p>
-                                </a>
-                            </li>
-                        @endif
-                        @if (Auth::user()->level != 1)
-                            <li class="nav-item">
-                                <a href="{{ url('school') }}"
-                                    class="nav-link {{ Request::segment(1) === 'school' ? 'active' : '' }}">
-                                    <i class="fas fa-school"></i>
-                                    <p>School</p>
-                                </a>
-                            </li>
-                        @endif
-                        <li class="nav-header">F-WALLET</li>
-                        <li class="nav-item">
-                            <a href="{{ url('money-manage') }}"
-                                class="nav-link {{ Request::segment(1) === 'money-manage' ? 'active' : '' }}">
-                                <i class="fas fa-file-invoice-dollar"></i>
-                                <p>Activities</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('money-item') }}"
-                                class="nav-link {{ Request::segment(1) === 'money-item' ? 'active' : '' }}">
-                                <i class="fas fa-funnel-dollar"></i>
-                                <p>Cards</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('money-plan') }}"
-                                class="nav-link {{ Request::segment(1) === 'money-plan' ? 'active' : '' }}">
-                                <i class="fas fa-money-check-alt"></i>
-                                <p>F-Goals</p>
-                            </a>
-                        </li>
-                        <li class="nav-header">HISTORY</li>
-                        <li class="nav-item">
-                            <a href="{{ url('history') }}"
-                                class="nav-link {{ Request::segment(1) === 'history' ? 'active' : '' }}">
-                                <i class="fas fa-history"></i>
-                                <p>History</p>
-                            </a>
-                        </li>
 
-                        {{-- <li class="nav-item">
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-circle"></i>
                                 <p>
@@ -278,7 +193,7 @@ die();
                                     </a>
                                 </li>
                             </ul>
-                        </li> --}}
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

@@ -38,7 +38,7 @@
     <div class="wrapper">
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
-                <span class="brand-text font-weight-light">AdminLTE 3</span>
+                <span class="brand-text font-weight-bold">{{ config('app.name') }}</span>
 
                 <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,33 +52,27 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">Login</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">Register</a>
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                            <li class="nav-item ">
+                                <a href="{{ url('/user/' . Auth::user()->id) }}" class="nav-link">Profile</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a href="{{ url('/user/' . Auth::user()->id) }}" class="nav-link">Vote</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('logout') }}" class="nav-link"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    Logout
                                 </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                         document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
                             </li>
                         @endguest
                     </ul>
@@ -90,7 +84,16 @@
 
             @yield('content')
         </div>
+
+        <footer class="main-footer">
+            <div class="container">
+
+                <strong>Copyright &copy; 2021 <a href="mailto:fintch.team@gmail.com">Fintch tech</a>.</strong>
+                All rights reserved.
+            </div>
+        </footer>
     </div>
+
 
     <!-- /.login-box -->
 
