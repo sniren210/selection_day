@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -53,7 +56,9 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+            'ktn' => ['file', 'image', 'mimes:jpeg,png,jpg'],
+            'selfi' => ['file', 'image', 'mimes:jpeg,png,jpg'],
+        ], $this->messages);
     }
 
     /**
@@ -64,10 +69,49 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        if ($data['ktn']) {
+            $data['ktn']->originalName =
+                time() . '_' . $data['ktn']->getClientOriginalName();
+
+            $data['ktn']->move(
+                'img/ktn',
+                $data['ktn']->originalName
+            );
+            $data['ktn']->originalName;
+        }
+
+        if ($data['selfi']) {
+            $data['selfi']->originalName =
+                time() . '_' . $data['selfi']->getClientOriginalName();
+
+            $data['selfi']->move(
+                'img/profile',
+                $data['selfi']->originalName
+            );
+            $data['selfi']->originalName;
+        }
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'ktn' =>  $data['ktn']->originalName,
+            'selfi' =>  $data['selfi']->originalName,
+            'level' => 0
         ]);
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        if ($response = $this->registered($request, $user)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+            ? new JsonResponse([], 201)
+            : redirect($this->redirectPath());
     }
 }

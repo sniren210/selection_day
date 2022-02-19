@@ -43,22 +43,6 @@ die();
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('') }}css/adminlte.min.css">
 
-    <link href="http://fonts.cdnfonts.com/css/gotham" rel="stylesheet">
-
-    <style>
-        body {
-            font-family: 'Gotham', sans-serif;
-        }
-
-        .navbar-dark .navbar-nav .nav-link {
-            color: rgb(255 255 255);
-        }
-
-        [class*=sidebar-dark-] .sidebar a {
-            color: #fff;
-        }
-
-    </style>
 
     @yield('css')
 </head>

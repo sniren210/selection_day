@@ -27,6 +27,7 @@ class User extends Authenticatable
         'ktn',
         'selfi',
         'vote_id',
+        'level',
     ];
 
     /**

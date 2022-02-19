@@ -49,4 +49,12 @@ class LoginController extends Controller
             'login'
         )->with('status', 'Akun belum terverikasi oleh admin mohon tunggu');
     }
+
+    protected function validateLogin(Request $request)
+    {
+        $request->validate([
+            $this->username() => 'required|string',
+            'password' => 'required|string',
+        ], $this->messages);
+    }
 }

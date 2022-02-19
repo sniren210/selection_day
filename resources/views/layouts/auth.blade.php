@@ -38,7 +38,7 @@
     <div class="wrapper">
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
-                <span class="brand-text font-weight-bold">{{ config('app.name') }}</span>
+                <a href="{{ url('./') }}" class="brand-text font-weight-bold">{{ config('app.name') }}</a>
 
                 <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -103,6 +103,9 @@
     <script src="{{ asset('') }}plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('') }}js/adminlte.min.js"></script>
+
+    @yield('js')
+
 </body>
 
 </html>
