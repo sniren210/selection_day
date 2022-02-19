@@ -15,7 +15,7 @@ die();
     <meta name="author" content="Sniren-ren">
     <meta itemprop="image" content="{{ asset('img/favicon.ico') }}">
     <link rel="shortcut icon" type="image/jpg" href="{{ asset('img/favicon.ico') }}" />
-    <title>{{ config('app.name') }} | Home</title>
+    <title>{{ config('app.name') }} | Dashboard</title>
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -140,8 +140,31 @@ die();
                             </a>
                         </li>
 
-                        <li class="nav-header">OPTIONS</li>
+                        <li class="nav-header">KANDIDAT</li>
+                        <li class="nav-item">
+                            <a href="{{ url('candidate') }}"
+                                class="nav-link {{ Request::segment(1) === 'candidate' ? 'active' : '' }}">
+                                <i class="fas fa-users"></i>
+                                <p>Kandidat</p>
+                            </a>
+                        </li>
 
+                        <li class="nav-header">Vote</li>
+                        <li class="nav-item">
+                            <a href="{{ url('vote-user') }}"
+                                class="nav-link {{ Request::segment(1) === 'vote-user' ? 'active' : '' }}">
+                                <i class="fas fa-users"></i>
+                                <p>Vote User</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('vote-candidate') }}"
+                                class="nav-link {{ Request::segment(1) === 'vote-candidate' ? 'active' : '' }}">
+                                <i class="fas fa-users"></i>
+                                <p>Vote Kandidat</p>
+                            </a>
+                        </li>
+                        {{-- <li class="nav-header">OPTIONS</li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-circle"></i>
@@ -193,7 +216,7 @@ die();
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> --}}
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

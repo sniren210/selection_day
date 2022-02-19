@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Candidate;
 use App\Http\Requests\StoreCandidateRequest;
 use App\Http\Requests\UpdateCandidateRequest;
+use Illuminate\Http\Request;
 
 class CandidateController extends Controller
 {
@@ -26,7 +27,7 @@ class CandidateController extends Controller
             'candidate' => Candidate::all(),
         ];
 
-        return view('candidate.index', $data);
+        return view('candidate.table', $data);
     }
 
     /**
@@ -45,7 +46,7 @@ class CandidateController extends Controller
      * @param  \App\Http\Requests\StoreCandidateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCandidateRequest $request)
+    public function store(Request $request)
     {
         $request->validate($this->validasi, $this->messages);
 

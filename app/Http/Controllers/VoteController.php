@@ -25,7 +25,25 @@ class VoteController extends Controller
             'vote' => Vote::all(),
         ];
 
-        return view('vote.index', $data);
+        return view('vote.table', $data);
+    }
+
+    public function user()
+    {
+        $data = [
+            'user' => User::whereNotNull('user_verified_at')->get(),
+        ];
+
+        return view('vote.table_user', $data);
+    }
+
+    public function candidate()
+    {
+        $data = [
+            'candidate' => Candidate::all(),
+        ];
+
+        return view('vote.table_candidate', $data);
     }
 
     /**
