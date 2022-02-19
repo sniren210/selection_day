@@ -28,7 +28,21 @@ class UserController extends Controller
             'user' => User::all(),
         ];
 
-        return view('user.index', $data);
+        return view('user.table', $data);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function verified()
+    {
+        $data = [
+            'user' => User::where('level', '=', '0')->get(),
+        ];
+
+        return view('user.table_verified', $data);
     }
 
     /**
@@ -43,6 +57,21 @@ class UserController extends Controller
         ];
 
         return view('user.add', $data);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\user  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function show(User $user)
+    {
+        $data = [
+            'user' => $user,
+        ];
+
+        return view('user.detail', $data);
     }
 
     /**

@@ -59,7 +59,7 @@ die();
                             class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ url('') }}" class="nav-link">Beranda</a>
+                    <a href="{{ url('') }}" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
 
@@ -118,13 +118,29 @@ die();
                     <ul class="nav nav-pills nav-sidebar flex-column pb-4" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <li class="nav-item">
-                            <a href="{{ url('home') }}"
-                                class="nav-link {{ Request::segment(1) === 'home' ? 'active' : '' }}">
+                            <a href="{{ url('dashboard') }}"
+                                class="nav-link {{ Request::segment(1) === 'dashboard' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>Home</p>
+                                <p>Dashboard</p>
                             </a>
                         </li>
                         <li class="nav-header">USER</li>
+                        <li class="nav-item">
+                            <a href="{{ url('user') }}"
+                                class="nav-link {{ Request::segment(1) === 'user' ? 'active' : '' }}">
+                                <i class="fas fa-users"></i>
+                                <p>User</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('user-verified') }}"
+                                class="nav-link {{ Request::segment(1) === 'user-verified' ? 'active' : '' }}">
+                                <i class="fas fa-users"></i>
+                                <p>User Verifikasi</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-header">OPTIONS</li>
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
