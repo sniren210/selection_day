@@ -34,9 +34,7 @@ Route::middleware(['auth', 'userInvalid'])->group(function () {
     Route::put('/user-verified/{user}', [UserController::class, 'verify']);
     Route::delete('/user-verified/{user}', [UserController::class, 'denied']);
 
-    Route::resource('/candidate', CandidateController::class, [
-        'except' => ['show'],
-    ]);
+    Route::resource('/candidate', CandidateController::class,);
 
     Route::get('/vote', [VoteController::class, 'index']);
     Route::get('/vote-user', [VoteController::class, 'user']);

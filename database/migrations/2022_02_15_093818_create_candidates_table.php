@@ -20,6 +20,7 @@ class CreateCandidatesTable extends Migration
             $table->longText('misi');
             $table->string('image');
             $table->string('fakultas');
+            $table->string('jurusan');
             $table->timestamps();
         });
     }

@@ -6,15 +6,26 @@ use App\Models\Candidate;
 use App\Http\Requests\StoreCandidateRequest;
 use App\Http\Requests\UpdateCandidateRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class CandidateController extends Controller
 {
     protected $validasi = [
-        'name' => ['required'],
-        'visi' => ['required'],
-        'misi' => ['required'],
-        'image' => ['required'],
-        'fakultas' => ['required'],
+        'name' => ['required', 'string'],
+        'visi' => ['required', 'string'],
+        'misi' => ['required', 'string'],
+        'fakultas' => ['required', 'string'],
+        'jurusan' => ['required', 'string'],
+        'image' => ['required', 'file', 'image', 'mimes:jpeg,png,jpg'],
+    ];
+
+    protected $validasiEdit = [
+        'name' => ['required', 'string'],
+        'visi' => ['required', 'string'],
+        'misi' => ['required', 'string'],
+        'fakultas' => ['required', 'string'],
+        'jurusan' => ['required', 'string'],
+        'image' => ['file', 'image', 'mimes:jpeg,png,jpg'],
     ];
     /**
      * Display a listing of the resource.
@@ -41,6 +52,21 @@ class CandidateController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  \App\user  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Candidate $candidate)
+    {
+        $data = [
+            'candidate' => $candidate,
+        ];
+
+        return view('candidate.detail', $data);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreCandidateRequest  $request
@@ -50,11 +76,34 @@ class CandidateController extends Controller
     {
         $request->validate($this->validasi, $this->messages);
 
+        if ($request->image) {
+
+            if ($request->image->originalName = 'default.png') {
+                $request->image->originalName =
+                    time() . '_' . $request->image->getClientOriginalName();
+
+                $request->image->move(
+                    'img/candidate',
+                    $request->image->originalName
+                );
+            } else {
+
+                $request->image->originalName =
+                    time() . '_' . $request->image->getClientOriginalName();
+
+                $request->image->move(
+                    'img/candidate',
+                    $request->image->originalName
+                );
+            }
+        }
+
         Candidate::create([
             'name' => $request->name,
             'visi' => $request->visi,
             'misi' => $request->misi,
-            'image' => $request->image,
+            'image' =>  $request->image->originalName,
+            'jurusan' => $request->jurusan,
             'fakultas' => $request->fakultas,
         ]);
         return redirect('candidate')->with('status', 'kandidat berhasil ditambahkan.');
@@ -83,19 +132,43 @@ class CandidateController extends Controller
      * @param  \App\Models\Candidate  $candidate
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCandidateRequest $request, Candidate $candidate)
+    public function update(Request $request, Candidate $candidate)
     {
         $request->validate(
-            $this->validasi,
+            $this->validasiEdit,
             $this->messages
         );
+
+        if ($request->image) {
+
+            if ($request->image->originalName = 'default.png') {
+                $request->image->originalName =
+                    time() . '_' . $request->image->getClientOriginalName();
+
+                $request->image->move(
+                    'img/candidate',
+                    $request->image->originalName
+                );
+            } else {
+                File::delete('img/candidate/' . $candidate->image->originalName);
+
+                $request->image->originalName =
+                    time() . '_' . $request->image->getClientOriginalName();
+
+                $request->image->move(
+                    'img/candidate',
+                    $request->image->originalName
+                );
+            }
+        }
 
         Candidate::where('id', $candidate->id)->update([
             'name' => $request->name,
             'visi' => $request->visi,
             'misi' => $request->misi,
-            'image' => $request->image,
+            'image' =>  $request->image->originalName ?? $candidate->image,
             'fakultas' => $request->fakultas,
+            'jurusan' => $request->jurusan,
         ]);
 
         return redirect(

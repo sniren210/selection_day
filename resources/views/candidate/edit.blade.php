@@ -45,7 +45,7 @@
                                     <div class="form-group">
                                         <label>Visi</label>
                                         <textarea name="visi" class="form-control @error('visi') is-invalid @enderror"
-                                            rows="3" placeholder="Enter ..." value="{{ $candidate->visi }}"></textarea>
+                                            rows="3" placeholder="Enter ...">{{ $candidate->visi }}</textarea>
                                         @error('visi')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -56,7 +56,7 @@
                                     <div class="form-group">
                                         <label>Misi</label>
                                         <textarea name="misi" class="form-control @error('misi') is-invalid @enderror"
-                                            rows="3" placeholder="Enter ..." value="{{ $candidate->misi }}"></textarea>
+                                            rows="3" placeholder="Enter ...">{{ $candidate->misi }}</textarea>
                                         @error('misi')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -68,11 +68,36 @@
                                         <label>Fakultas</label>
                                         <select class="custom-select @error('fakultas') is-invalid @enderror"
                                             name="fakultas">
-                                            <option checked value="">Pilih fakultas</option>
-                                            <option value="Teknik infomatika">Teknik infomatika</option>
-                                            <option value="Sistem infomasi">Sistem infomasi</option>
+                                            <option checked value="">Pilih Fakultas</option>
+                                            <option {{ $candidate->fakultas == 'ekonomi' ? 'selected' : '' }}
+                                                value="ekonomi">
+                                                Ekonomi
+                                            </option>
+                                            <option {{ $candidate->fakultas == 'bisnis' ? 'selected' : '' }}
+                                                value="bisnis">
+                                                Bisnis
+                                            </option>
                                         </select>
                                         @error('fakultas')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Jurusan</label>
+                                        <select class="custom-select @error('jurusan') is-invalid @enderror" name="jurusan">
+                                            <option checked value="">Pilih Jurusan</option>
+                                            <option {{ $candidate->jurusan == 'MBTI' ? 'selected' : '' }} value="MBTI">
+                                                MBTI
+                                            </option>
+                                            <option {{ $candidate->jurusan == 'ICT' ? 'selected' : '' }} value="ICT">ICT
+                                            </option>
+                                            <option {{ $candidate->jurusan == 'Akuntansi' ? 'selected' : '' }}
+                                                value="Akuntansi">Akuntansi</option>
+                                        </select>
+                                        @error('jurusan')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

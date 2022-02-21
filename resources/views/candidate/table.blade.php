@@ -72,6 +72,8 @@
                                             </td>
                                             @if (Auth::guard('web')->check())
                                                 <td>
+                                                     <a href="{{ url('/candidate/' . $data->id) }}"
+                                                        class="badge badge-info">Show</a>
                                                     <a href="{{ url('/candidate/' . $data->id . '/edit') }}"
                                                         class="badge badge-success">Edit</a>
                                                     <button type="button" class="btn badge badge-danger" data-toggle="modal"
