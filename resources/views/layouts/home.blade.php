@@ -73,9 +73,6 @@ die();
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ url('/user/' . Auth::user()->id) }}" class="nav-link">Profile</a>
-                </li>
                 <li class="nav-item  d-lg-none d-md-none d-sm-none">
                     <a href="{{ url('/user/' . Auth::user()->id) }}" class="nav-link">
                         <i class="fas fa-user"></i>

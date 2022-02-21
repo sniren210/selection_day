@@ -21,8 +21,10 @@ class HomeController extends Controller
             'user' => User::all(),
             'candidate' => Candidate::all(),
             'vote' => Vote::all(),
+            'not_vote' => User::whereNotNull('user_verified_at')->get(),
+
         ];
 
-        return view('admin.dashboard', $data);
+        return view('dashboard', $data);
     }
 }

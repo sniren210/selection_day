@@ -24,10 +24,9 @@
                             <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Vote</span>
+                                <span class="info-box-text">Jumlah yg Vote</span>
                                 <span class="info-box-number">
-                                    10
-                                    <small>%</small>
+                                    {{ count($vote) }}
                                 </span>
                             </div>
                             <!-- /.info-box-content -->
@@ -40,8 +39,11 @@
                             <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Kandidat</span>
-                                <span class="info-box-number">41,410</span>
+                                <span class="info-box-text">Jumlah Kandidat</span>
+                                <span class="info-box-number">
+                                    {{ count($candidate) }}
+
+                                </span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -58,7 +60,10 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">User Belum Approved</span>
-                                <span class="info-box-number">760</span>
+                                <span class="info-box-number">
+                                    {{ count($not_vote) }}
+
+                                </span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -71,7 +76,10 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">User</span>
-                                <span class="info-box-number">2,000</span>
+                                <span class="info-box-number">
+                                    {{ count($user) }}
+
+                                </span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -89,14 +97,6 @@
                             <div class="card-header">
                                 <h3 class="card-title">Donut Chart</h3>
 
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
                             </div>
                             <div class="card-body">
                                 <div class="chartjs-size-monitor">
@@ -126,14 +126,6 @@
                             <div class="card-header">
                                 <h3 class="card-title">Bar Chart</h3>
 
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
                             </div>
                             <div class="card-body">
                                 <div class="chart">
@@ -176,46 +168,13 @@
                             <!-- /.card-header -->
                             <div class="card-body p-0">
                                 <ul class="users-list clearfix">
-                                    <li>
-                                        <img src="./img/default-150x150.png" alt="User Image">
-                                        <a class="users-list-name" href="#">Alexander Pierce</a>
-                                        <span class="users-list-date">Today</span>
-                                    </li>
-                                    <li>
-                                        <img src="./img/default-150x150.png" alt="User Image">
-                                        <a class="users-list-name" href="#">Norman</a>
-                                        <span class="users-list-date">Yesterday</span>
-                                    </li>
-                                    <li>
-                                        <img src="./img/default-150x150.png" alt="User Image">
-                                        <a class="users-list-name" href="#">Jane</a>
-                                        <span class="users-list-date">12 Jan</span>
-                                    </li>
-                                    <li>
-                                        <img src="./img/default-150x150.png" alt="User Image">
-                                        <a class="users-list-name" href="#">John</a>
-                                        <span class="users-list-date">12 Jan</span>
-                                    </li>
-                                    <li>
-                                        <img src="./img/default-150x150.png" alt="User Image">
-                                        <a class="users-list-name" href="#">Alexander</a>
-                                        <span class="users-list-date">13 Jan</span>
-                                    </li>
-                                    <li>
-                                        <img src="./img/default-150x150.png" alt="User Image">
-                                        <a class="users-list-name" href="#">Sarah</a>
-                                        <span class="users-list-date">14 Jan</span>
-                                    </li>
-                                    <li>
-                                        <img src="./img/default-150x150.png" alt="User Image">
-                                        <a class="users-list-name" href="#">Nora</a>
-                                        <span class="users-list-date">15 Jan</span>
-                                    </li>
-                                    <li>
-                                        <img src="./img/default-150x150.png" alt="User Image">
-                                        <a class="users-list-name" href="#">Nadia</a>
-                                        <span class="users-list-date">15 Jan</span>
-                                    </li>
+                                    @foreach ($candidate as $item)
+                                        <li>
+                                            <img src="./img/candidate/{{ $item->image }}" alt="User Image">
+                                            <a class="users-list-name" href="#">{{ $item->name }} </a>
+                                            <span class="users-list-date">{{ $item->fakultas }} </span>
+                                        </li>
+                                    @endforeach
                                 </ul>
                                 <!-- /.users-list -->
                             </div>
@@ -260,7 +219,7 @@
                     'Navigator',
                 ],
                 datasets: [{
-                    data: [700, 500, 400, 600, 300, 100],
+                    data: ['700 %', 500, 400, 600, 300, 100],
                     backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
                 }]
             }

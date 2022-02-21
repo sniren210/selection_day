@@ -23,7 +23,8 @@ class UserSeeder extends Seeder
                 'jurusan' => 'MBTI',
                 'user_verified_at' => date('Y-m-d h:i:s'),
                 'password' => app('hash')->make('user123'),
-                'level' => 0
+                'level' => 0,
+                'vote_id' => 1
 
             ],
             [
