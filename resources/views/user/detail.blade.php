@@ -40,6 +40,10 @@
 
                                 <a href="{{ url('/user/' . $user->id . '/edit') }}"
                                     class="btn btn-primary btn-block"><b>Edit</b></a>
+                                @if (!$user->user_verified_at)
+                                    <button type="button" class="btn btn-success btn-block" data-toggle="modal"
+                                        data-target="#verify{{ $user->id }}">Verify</button>
+                                @endif
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -54,36 +58,38 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <strong><i class="fas fa-book mr-1"></i> Education</strong>
+                                <strong><i class="fas fa-book mr-1"></i> Fakultas</strong>
 
                                 <p class="text-muted">
-                                    B.S. in Computer Science from the University of Tennessee at Knoxville
+                                    {{ $user->fakultas }}
                                 </p>
 
                                 <hr>
 
-                                <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+                                <strong><i class="fas fa-map-marker-alt mr-1"></i> Jurusan</strong>
 
-                                <p class="text-muted">Malibu, California</p>
-
-                                <hr>
-
-                                <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
-
-                                <p class="text-muted">
-                                    <span class="tag tag-danger">UI Design</span>
-                                    <span class="tag tag-success">Coding</span>
-                                    <span class="tag tag-info">Javascript</span>
-                                    <span class="tag tag-warning">PHP</span>
-                                    <span class="tag tag-primary">Node.js</span>
-                                </p>
+                                <p class="text-muted">{{ $user->jurusan }}</p>
 
                                 <hr>
 
-                                <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
+                                <strong><i class="fas fa-pencil-alt mr-1"></i> KTM/KTM Digital</strong>
 
-                                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
-                                    fermentum enim neque.</p>
+                                <div class="row justify-content-start">
+                                    <img class="profile-user-img img-circle" style="margin: unset;" id="img-selfi"
+                                        src="/img/ktn/{{ $user->ktn }}" alt="Photo">
+                                </div>
+
+                                <hr>
+                                <strong><i class="fas fa-pencil-alt mr-1"></i> selfie dengan KTM</strong>
+
+                                <div class="row justify-content-start">
+
+                                    <img class="profile-user-img img-circle" style="margin: unset;" id="img-selfi"
+                                        src="/img/profile/{{ $user->selfi }}" alt="Photo">
+                                </div>
+
+                                <hr>
+
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -93,5 +99,31 @@
             </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="verify{{ $user->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Verifikasi User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    yakin ingin verifikasi user ini ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <form action="/user-verified/{{ $user->id }}" method="POST">
+                        @csrf
+                        @method('put')
+                        <button type="submit" class="btn btn-success">Verifikasi Data</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

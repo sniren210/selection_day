@@ -19,6 +19,8 @@ class UserSeeder extends Seeder
             [
                 'name' => 'user123',
                 'email' => 'user@gmail.com',
+                'fakultas' => 'ekonomi',
+                'jurusan' => 'MBTI',
                 'user_verified_at' => null,
                 'password' => app('hash')->make('user123'),
                 'level' => 0
@@ -27,6 +29,8 @@ class UserSeeder extends Seeder
             [
                 'name' => 'admin123',
                 'email' => 'admin@gmail.com',
+                'fakultas' => 'ekonomi',
+                'jurusan' => 'MBTI',
                 'user_verified_at' => null,
                 'password' => app('hash')->make('admin123'),
                 'level' => 1

@@ -96,6 +96,43 @@
                                         @enderror
                                     </div>
 
+                                    <div class="form-group">
+                                        <label>Fakultas</label>
+                                        <select class="custom-select @error('fakultas') is-invalid @enderror"
+                                            name="fakultas">
+                                            <option checked value="">Pilih Fakultas</option>
+                                            <option {{ $user->fakultas == 'ekonomi' ? 'selected' : '' }} value="ekonomi">
+                                                Ekonomi
+                                            </option>
+                                            <option {{ $user->fakultas == 'bisnis' ? 'selected' : '' }} value="bisnis">
+                                                Bisnis
+                                            </option>
+                                        </select>
+                                        @error('fakultas')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Jurusan</label>
+                                        <select class="custom-select @error('jurusan') is-invalid @enderror" name="jurusan">
+                                            <option checked value="">Pilih Jurusan</option>
+                                            <option {{ $user->jurusan == 'MBTI' ? 'selected' : '' }} value="MBTI">MBTI
+                                            </option>
+                                            <option {{ $user->jurusan == 'ICT' ? 'selected' : '' }} value="ICT">ICT
+                                            </option>
+                                            <option {{ $user->jurusan == 'Akuntansi' ? 'selected' : '' }}
+                                                value="Akuntansi">Akuntansi</option>
+                                        </select>
+                                        @error('jurusan')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
                                     <div class="row">
                                         <div class="col-md-6">
 

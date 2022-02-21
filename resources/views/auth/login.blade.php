@@ -68,6 +68,10 @@
 
                         </form>
                     </div>
+                    <p class="mb-1">
+                        Belum punya akun
+                        <a href="{{ route('register') }}">Klik disini</a>
+                    </p>
                 </div>
             </div>
         </div>

@@ -26,11 +26,13 @@ Auth::routes([
     'reset'    => false,
 ]);
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'userInvalid'])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
 
     Route::resource('/user', UserController::class);
     Route::get('/user-verified', [UserController::class, 'verified']);
+    Route::put('/user-verified/{user}', [UserController::class, 'verify']);
+    Route::delete('/user-verified/{user}', [UserController::class, 'denied']);
 
     Route::resource('/candidate', CandidateController::class, [
         'except' => ['show'],

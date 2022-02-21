@@ -28,6 +28,8 @@ class User extends Authenticatable
         'selfi',
         'vote_id',
         'level',
+        'fakultas',
+        'jurusan',
     ];
 
     /**

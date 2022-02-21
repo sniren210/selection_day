@@ -5,17 +5,25 @@ namespace App\Http\Controllers;
 use App\Models\Candidate;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     protected $validasi = [
+        'name' => ['required', 'string'],
+        'email' => ['required', 'string', 'unique:users,email'],
+        'password' => ['required', 'confirmed', 'string'],
+        'ktn' => ['required', 'file', 'image', 'mimes:jpeg,png,jpg'],
+        'selfi' => ['required', 'file', 'image', 'mimes:jpeg,png,jpg'],
+    ];
+
+    protected $validasiEdit = [
         'name' => ['required'],
         'email' => ['required'],
-        'password' => ['required'],
-        'user_verified_at' => ['required'],
-        'ktn' => ['required'],
-        'selfi' => ['required'],
-        'vote_id' => ['required'],
+        'password' => ['confirmed'],
+        'ktn' => ['file', 'image', 'mimes:jpeg,png,jpg'],
+        'selfi' => ['file', 'image', 'mimes:jpeg,png,jpg'],
     ];
     /**
      * Display a listing of the resource.
@@ -43,6 +51,21 @@ class UserController extends Controller
         ];
 
         return view('user.table_verified', $data);
+    }
+
+    public function verify(Request $request, User $user)
+    {
+
+        user::where('id', $user->id)->update([
+            'name' => $user->name,
+            'email' => $user->email,
+            'password' => $user->password,
+            'user_verified_at' => date('Y-m-d h:i:s'),
+            'ktn' => $user->ktn,
+            'selfi' => $user->selfi,
+            'vote_id' => $user->vote_id,
+        ]);
+        return redirect('user-verified')->with('status', 'user berhasil di verifikasi.');
     }
 
     /**
@@ -84,14 +107,58 @@ class UserController extends Controller
     {
         $request->validate($this->validasi, $this->messages);
 
-        Candidate::create([
+        if ($request->ktn) {
+
+            if ($request->ktn->originalName = 'default.png') {
+                $request->ktn->originalName =
+                    time() . '_' . $request->ktn->getClientOriginalName();
+                $request->ktn->move(
+                    'img/ktn',
+                    $request->ktn->originalName
+                );
+            } else {
+
+                $request->ktn->originalName =
+                    time() . '_' . $request->ktn->getClientOriginalName();
+
+                $request->ktn->move(
+                    'img/ktn',
+                    $request->ktn->originalName
+                );
+            }
+        }
+
+        if ($request->selfi) {
+
+            if ($request->selfi->originalName = 'default.png') {
+                $request->selfi->originalName =
+                    time() . '_' . $request->selfi->getClientOriginalName();
+
+                $request->selfi->move(
+                    'img/profile',
+                    $request->selfi->originalName
+                );
+            } else {
+                $request->selfi->originalName =
+                    time() . '_' . $request->selfi->getClientOriginalName();
+
+                $request->selfi->move(
+                    'img/profile',
+                    $request->selfi->originalName
+                );
+            }
+        }
+
+
+        User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password,
-            'user_verified_at' => $request->user_verified_at,
-            'ktn' => $request->ktn,
-            'selfi' => $request->selfi,
-            'vote_id' => $request->vote_id,
+            'fakultas' => $request->fakultas,
+            'jurusan' => $request->jurusan,
+            'password' => Hash::make($request->password),
+            'ktn' =>  $request->ktn->originalName,
+            'selfi' =>  $request->selfi->originalName,
+            'level' => 0
         ]);
         return redirect('user')->with('status', 'user berhasil.');
     }
@@ -121,18 +188,65 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $request->validate(
-            $this->validasi,
+            $this->validasiEdit,
             $this->messages
         );
 
-        user::where('id', $user->id)->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
-            'user_verified_at' => $request->user_verified_at,
-            'ktn' => $request->ktn,
-            'selfi' => $request->selfi,
-            'vote_id' => $request->vote_id,
+        if ($request->ktn) {
+
+            if ($request->ktn->originalName = 'default.png') {
+                $request->ktn->originalName =
+                    time() . '_' . $request->ktn->getClientOriginalName();
+
+                $request->ktn->move(
+                    'img/ktn',
+                    $request->ktn->originalName
+                );
+            } else {
+                File::delete('img/ktn/' . $user->ktn->originalName);
+
+                $request->ktn->originalName =
+                    time() . '_' . $request->ktn->getClientOriginalName();
+
+                $request->ktn->move(
+                    'img/ktn',
+                    $request->ktn->originalName
+                );
+            }
+        }
+
+        if ($request->selfi) {
+
+            if ($request->selfi->originalName = 'default.png') {
+                $request->selfi->originalName =
+                    time() . '_' . $request->selfi->getClientOriginalName();
+
+                $request->selfi->move(
+                    'img/profile',
+                    $request->selfi->originalName
+                );
+            } else {
+                File::delete('img/profile/' . $user->selfi->originalName);
+
+                $request->selfi->originalName =
+                    time() . '_' . $request->selfi->getClientOriginalName();
+
+                $request->selfi->move(
+                    'img/profile',
+                    $request->selfi->originalName
+                );
+            }
+        }
+
+        User::where('id', $user->id)->update([
+            'name' => $request->name ?? $user->name,
+            'email' => $request->email ?? $user->email,
+            'password' => $request->password ?? $user->password,
+            'user_verified_at' => $user->user_verified_at,
+            'ktn' => $request->ktn->originalName ?? $user->ktn,
+            'selfi' =>  $request->selfi->originalName ?? $user->selfi,
+            'vote_id' => $user->vote_id,
+            'level' => $request->level,
         ]);
 
         return redirect(
@@ -150,5 +264,11 @@ class UserController extends Controller
     {
         user::destroy($user->id);
         return redirect('user')->with('status', 'user berhasil dihapus.');
+    }
+
+    public function denied(User $user)
+    {
+        user::destroy($user->id);
+        return redirect('user-verified')->with('status', 'user dengan email ' . $user->email . ' berhasil di tolak.');
     }
 }

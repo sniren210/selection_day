@@ -22,6 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('selfi')->default('default.png');
             $table->string('vote_id')->nullable();
             $table->string('password');
+            $table->string('fakultas');
+            $table->string('jurusan');
             $table->integer('level');
             $table->rememberToken();
             $table->timestamps();

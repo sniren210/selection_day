@@ -63,12 +63,16 @@
                                             <td>{{ $data->user_verified_at ?? 'Belum Verifikasi' }} </td>
                                             @if (Auth::guard('web')->check())
                                                 <td>
+                                                    <a href="{{ url('/user/' . $data->id) }}"
+                                                        class="badge badge-info">Show</a>
                                                     @if (!$data->user_verified_at)
-                                                        <a href="{{ url('/user/' . $data->id . '/edit') }}"
-                                                            class="badge badge-success">Verified akun</a>
+                                                        <button type="button" class="btn badge badge-success"
+                                                            data-toggle="modal"
+                                                            data-target="#verify{{ $data->id }}">Verify</button>
+                                                        <button type="button" class="btn badge badge-danger"
+                                                            data-toggle="modal"
+                                                            data-target="#denied{{ $data->id }}">Tolak</button>
                                                     @endif
-                                                    <button type="button" class="btn badge badge-danger" data-toggle="modal"
-                                                        data-target="#delete{{ $data->id }}">Hapus</button>
                                                 </td>
                                             @endif
                                         </tr>
@@ -99,27 +103,56 @@
     </div>
     <!-- /.content-wrapper -->
 
+
     <!-- Modal -->
     @foreach ($user as $data)
-        <div class="modal fade" id="delete{{ $data->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="denied{{ $data->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Hapus User</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Menolak User</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        yakin ingin menghapus user ini ?
+                        yakin dengan menolak user ini akan terhapus dan akan terkirim notifikasi user terhapus ?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <form action="/user/{{ $data->id }}" method="POST">
+                        <form action="/user-verified/{{ $data->id }}" method="POST">
                             @csrf
                             @method('delete')
                             <button type="submit" class="btn btn-danger">Hapus Data</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+
+    <!-- Modal -->
+    @foreach ($user as $data)
+        <div class="modal fade" id="verify{{ $data->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Verifikasi User</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        yakin ingin verifikasi user ini ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <form action="/user-verified/{{ $data->id }}" method="POST">
+                            @csrf
+                            @method('put')
+                            <button type="submit" class="btn btn-success">Verifikasi Data</button>
                         </form>
                     </div>
                 </div>

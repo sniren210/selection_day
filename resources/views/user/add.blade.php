@@ -82,6 +82,8 @@
                                         </div>
                                     </div>
 
+
+
                                     <div class="form-group">
                                         <label>User Level</label>
                                         <select class="custom-select @error('level') is-invalid @enderror" name="level">
@@ -96,11 +98,41 @@
                                         @enderror
                                     </div>
 
+                                    <div class="form-group">
+                                        <label>Fakultas</label>
+                                        <select class="custom-select @error('fakultas') is-invalid @enderror"
+                                            name="fakultas">
+                                            <option checked value="">Pilih Fakultas</option>
+                                            <option value="ekonomi">Ekonomi</option>
+                                            <option value="bisnis">Bisnis</option>
+                                        </select>
+                                        @error('fakultas')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Jurusan</label>
+                                        <select class="custom-select @error('jurusan') is-invalid @enderror" name="jurusan">
+                                            <option checked value="">Pilih Jurusan</option>
+                                            <option value="MBTI">MBTI</option>
+                                            <option value="ICT">ICT</option>
+                                            <option value="Akuntansi">Akuntansi</option>
+                                        </select>
+                                        @error('jurusan')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
                                     <div class="row">
                                         <div class="col-md-6">
 
                                             <div class="form-group">
-                                                <label for="exampleInputFile">Upload KTN</label>
+                                                <label for="exampleInputFile">Upload KTM/KTM Digital</label>
                                                 <div class="card">
                                                     <img class="img card-img-top" id="img-ktn"
                                                         src="/img/default-150x150.png" alt="Photo"
@@ -132,7 +164,7 @@
                                         <div class="col-md-6">
 
                                             <div class="form-group">
-                                                <label for="exampleInputFile">Upload Selfi</label>
+                                                <label for="exampleInputFile">Upload foto selfie dengan KTM</label>
                                                 <div class="card">
                                                     <img class="img card-img-top" id="img-selfi"
                                                         src="/img/default-150x150.png" alt="Photo"
