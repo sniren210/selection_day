@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
                 'email' => 'user@gmail.com',
                 'fakultas' => 'ekonomi',
                 'jurusan' => 'MBTI',
-                'user_verified_at' => null,
+                'user_verified_at' => date('Y-m-d h:i:s'),
                 'password' => app('hash')->make('user123'),
                 'level' => 0
 
@@ -31,9 +31,18 @@ class UserSeeder extends Seeder
                 'email' => 'admin@gmail.com',
                 'fakultas' => 'ekonomi',
                 'jurusan' => 'MBTI',
-                'user_verified_at' => null,
+                'user_verified_at' => date('Y-m-d h:i:s'),
                 'password' => app('hash')->make('admin123'),
                 'level' => 1
+            ],
+            [
+                'name' => 'saksi123',
+                'email' => 'saksi@gmail.com',
+                'fakultas' => 'ekonomi',
+                'jurusan' => 'MBTI',
+                'user_verified_at' => date('Y-m-d h:i:s'),
+                'password' => app('hash')->make('saksi123'),
+                'level' => 2
             ],
         ));
     }

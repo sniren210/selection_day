@@ -158,7 +158,7 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
             'ktn' =>  $request->ktn->originalName,
             'selfi' =>  $request->selfi->originalName,
-            'level' => 0
+            'level' => $request->level,
         ]);
         return redirect('user')->with('status', 'user berhasil.');
     }

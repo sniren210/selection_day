@@ -148,22 +148,16 @@ die();
                                 <p>Kandidat</p>
                             </a>
                         </li>
-
-                        <li class="nav-header">Vote</li>
-                        <li class="nav-item">
-                            <a href="{{ url('vote-user') }}"
-                                class="nav-link {{ Request::segment(1) === 'vote-user' ? 'active' : '' }}">
-                                <i class="fas fa-users"></i>
-                                <p>Vote User</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('vote-candidate') }}"
-                                class="nav-link {{ Request::segment(1) === 'vote-candidate' ? 'active' : '' }}">
-                                <i class="fas fa-users"></i>
-                                <p>Vote Kandidat</p>
-                            </a>
-                        </li>
+                        @if (Auth::user()->level == 1)
+                            <li class="nav-header">Vote</li>
+                            <li class="nav-item">
+                                <a href="{{ url('vote-user') }}"
+                                    class="nav-link {{ Request::segment(1) === 'vote-user' ? 'active' : '' }}">
+                                    <i class="fas fa-users"></i>
+                                    <p>Vote User</p>
+                                </a>
+                            </li>
+                        @endif
                         {{-- <li class="nav-header">OPTIONS</li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">

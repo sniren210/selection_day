@@ -72,8 +72,10 @@
                                                 @php
                                                     if ($data->level == 0) {
                                                         echo 'User';
-                                                    } else {
+                                                    } elseif ($data->level == 1) {
                                                         echo 'Admin';
+                                                    } else {
+                                                        echo 'Saksi';
                                                     }
                                                 @endphp
                                             </td>

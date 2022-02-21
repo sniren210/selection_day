@@ -37,15 +37,6 @@ class VoteController extends Controller
         return view('vote.table_user', $data);
     }
 
-    public function candidate()
-    {
-        $data = [
-            'candidate' => Candidate::all(),
-        ];
-
-        return view('vote.table_candidate', $data);
-    }
-
     /**
      * Show the form for creating a new resource.
      *

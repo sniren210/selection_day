@@ -38,5 +38,4 @@ Route::middleware(['auth', 'userInvalid'])->group(function () {
 
     Route::get('/vote', [VoteController::class, 'index']);
     Route::get('/vote-user', [VoteController::class, 'user']);
-    Route::get('/vote-candidate', [VoteController::class, 'candidate']);
 });

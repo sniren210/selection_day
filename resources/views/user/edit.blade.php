@@ -88,6 +88,7 @@
                                             <option checked value="">Pilih user level</option>
                                             <option {{ $user->level == 0 ? 'selected' : '' }} value="0">User</option>
                                             <option {{ $user->level == 1 ? 'selected' : '' }} value="1">Admin</option>
+                                            <option {{ $user->level == 2 ? 'selected' : '' }} value="2">Saksi</option>
                                         </select>
                                         @error('level')
                                             <span class="invalid-feedback" role="alert">
