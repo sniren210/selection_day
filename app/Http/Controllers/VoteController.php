@@ -7,6 +7,7 @@ use App\Http\Requests\StoreVoteRequest;
 use App\Http\Requests\UpdateVoteRequest;
 use App\Models\Candidate;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class VoteController extends Controller
 {
@@ -22,10 +23,13 @@ class VoteController extends Controller
     public function index()
     {
         $data = [
-            'vote' => Vote::all(),
+            'candidate' => Candidate::all(),
         ];
 
-        return view('vote.table', $data);
+        if (app('auth')->user()->vote) {
+            return view('vote', $data);
+        }
+        return view('vote_finish', $data);
     }
 
     public function user()
@@ -58,13 +62,13 @@ class VoteController extends Controller
      * @param  \App\Http\Requests\StoreVoteRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreVoteRequest $request)
+    public function store(Request $request)
     {
         $request->validate($this->validasi, $this->messages);
 
         Candidate::create([
-            'candidate_id' => $request->candidate_id,
-            'user_id' => $request->user_id,
+            'candidate_id' => $request->candidate,
+            'user_id' => app('auth')->user()->id,
         ]);
         return redirect('vote')->with('status', 'vote berhasil.');
     }

@@ -50,6 +50,11 @@
                     <ul class="navbar-nav">
 
                         @guest
+                            <li class="nav-item ">
+                                <a href="{{ url('/vote') }}"
+                                    class="nav-link  {{ Request::segment(1) === 'vote' ? 'active' : '' }}">Vote</a>
+                            </li>
+
                             @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">Login</a>
@@ -63,14 +68,21 @@
                             @endif
                         @else
                             <li class="nav-item ">
-                                <a href="{{ url('/user/' . Auth::user()->id) }}" class="nav-link">Profile</a>
+                                <a href="{{ url('/') }}"
+                                    class="nav-link  {{ Request::segment(1) === null ? 'active' : '' }}"> Home</a>
                             </li>
                             <li class="nav-item ">
-                                <a href="{{ url('/user/' . Auth::user()->id) }}" class="nav-link">Vote</a>
+                                <a href="{{ url('/user/' . Auth::user()->id) }}"
+                                    class="nav-link  {{ Request::segment(1) === 'user' ? 'active' : '' }}">Profile</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a href="{{ url('/vote') }}"
+                                    class="nav-link  {{ Request::segment(1) === 'vote' ? 'active' : '' }}">Vote</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">Logout</a>
+                                <a href="{{ route('logout') }}" class="nav-link"
+                                    onclick="event.preventDefault();
+                                                                                                                         document.getElementById('logout-form').submit();">Logout</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                     class="d-none">
                                     @csrf

@@ -27,4 +27,13 @@ class HomeController extends Controller
 
         return view('dashboard', $data);
     }
+
+    public function vote()
+    {
+        $data = [
+            'candidate' => Candidate::all(),
+        ];
+
+        return view('vote', $data);
+    }
 }

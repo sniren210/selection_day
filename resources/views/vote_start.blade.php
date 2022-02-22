@@ -3,78 +3,14 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center align-items-center my-1">
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="font-weight-bold">Election Day</h3>
-                    </div>
-                    <div class="card-body">
-
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="{{ url('user/vote') }}" class="btn btn-primary">Vote Sekarang</a>
-                    </div>
+            <div class="col-lg-12">
+                <div class="callout callout-info">
+                    <h5><i class="fas fa-info"></i> Note:</h5>
+                    Sekali vote anda tidak akan bisa vote untuk kedua kalinya jadi pilih dengan hati-hati
                 </div>
-
-            </div>
-            <div class="col-lg-6">
-                <img src="{{ asset('./img/dashboard_illustration.png') }}" class="product-image" alt="Product Image">
-            </div>
-        </div>
-        <hr>
-        <div class="row my-1">
-            <div class="container">
-
-                <h3 class="font-weight-bold">Candidate</h3>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem esse aliquid et? </p>
-            </div>
-        </div>
-        <div class="row justify-content-around">
-            <div class="col-lg-3">
-                <div class="row align-items-center">
-
-                    <div class="card">
-
-                        <img src="{{ asset('./img/candidate/default.png') }}" style="margin:auto; width: 150px"
-                            class="img card-img-top" alt="Product Image">
-                        <div class="card-body">
-
-                            <h4 class="font-weight-bold">Candidate</h4>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem esse aliquid et? </p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-lg-3">
-                <div class="row align-items-center">
-
-                    <div class="card">
-
-                        <img src="{{ asset('./img/candidate/default.png') }}" style="margin:auto; width: 150px"
-                            class="img card-img-top" alt="Product Image">
-                        <div class="card-body">
-
-                            <h4 class="font-weight-bold">Candidate</h4>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem esse aliquid et? </p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-lg-3">
-                <div class="row align-items-center">
-
-                    <div class="card">
-
-                        <img src="{{ asset('./img/candidate/default.png') }}" style="margin:auto; width: 150px"
-                            class="img card-img-top" alt="Product Image">
-                        <div class="card-body">
-
-                            <h4 class="font-weight-bold">Candidate</h4>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem esse aliquid et? </p>
-                        </div>
-                    </div>
-                </div>
+                <a href="{{ url('user/vote') }}" class="btn btn-primary btn-block .btn-lg"><i
+                        class="fa fa-bell"></i>Vote
+                    Sekarang</a>
 
             </div>
         </div>
