@@ -78,14 +78,10 @@
                                 <a href="{{ url('/user/show') }}"
                                     class="nav-link  {{ Request::segment(1) === 'user' ? 'active' : '' }}">Profile</a>
                             </li>
-                            <li class="nav-item ">
-                                <a href="{{ url('/vote-start') }}"
-                                    class="nav-link  {{ Request::segment(1) === 'vote-start' ? 'active' : '' }}">Vote</a>
-                            </li>
                             <li class="nav-item">
                                 <a href="{{ route('logout') }}" class="nav-link"
                                     onclick="event.preventDefault();
-                                                                                                                                                     document.getElementById('logout-form').submit();">Logout</a>
+                                                                                                                                                         document.getElementById('logout-form').submit();">Logout</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                     class="d-none">
                                     @csrf
