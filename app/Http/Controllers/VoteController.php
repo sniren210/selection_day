@@ -7,13 +7,13 @@ use App\Http\Requests\StoreVoteRequest;
 use App\Http\Requests\UpdateVoteRequest;
 use App\Models\Candidate;
 use App\Models\User;
+use App\Notifications\VoteNotification;
 use Illuminate\Http\Request;
 
 class VoteController extends Controller
 {
     protected $validasi = [
-        'candidate_id' => ['required'],
-        'user_id' => ['required'],
+        'candidate' => ['required'],
     ];
     /**
      * Display a listing of the resource.
@@ -23,37 +23,22 @@ class VoteController extends Controller
     public function index()
     {
         $data = [
-            'candidate' => Candidate::all(),
-        ];
-
-        if (app('auth')->user()->vote) {
-            return view('vote', $data);
-        }
-        return view('vote_finish', $data);
-    }
-
-    public function user()
-    {
-        $data = [
             'user' => User::whereNotNull('user_verified_at')->get(),
         ];
 
         return view('vote.table_user', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function vote()
     {
         $data = [
-            'user' => User::all(),
             'candidate' => Candidate::all(),
         ];
 
-        return view('vote.add', $data);
+        if (app('auth')->user()->vote) {
+            return view('vote_finish', $data);
+        }
+        return view('vote', $data);
     }
 
     /**
@@ -62,14 +47,19 @@ class VoteController extends Controller
      * @param  \App\Http\Requests\StoreVoteRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function vote_store(Request $request)
     {
-        $request->validate($this->validasi, $this->messages);
 
-        Candidate::create([
+
+        $res = Vote::create([
             'candidate_id' => $request->candidate,
             'user_id' => app('auth')->user()->id,
         ]);
+
+        app('auth')->user()->update([
+            'vote_id' => $res->id
+        ]);
+
         return redirect('vote')->with('status', 'vote berhasil.');
     }
 
@@ -83,7 +73,6 @@ class VoteController extends Controller
     {
         $data = [
             'vote' => $vote,
-            'user' => User::all(),
             'candidate' => Candidate::all(),
         ];
 
@@ -97,20 +86,20 @@ class VoteController extends Controller
      * @param  \App\Models\Vote  $vote
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateVoteRequest $request, Vote $vote)
+    public function update(Request $request, Vote $vote)
     {
         $request->validate(
             $this->validasi,
             $this->messages
         );
 
-        vote::where('id', $vote->id)->update([
-            'candidate_id' => $request->candidate_id,
-            'user_id' => $request->user_id,
+        Vote::where('id', $vote->id)->update([
+            'candidate_id' => $request->candidate,
+            'user_id' =>  app('auth')->user()->id,
         ]);
 
         return redirect(
-            'vote'
+            'vote-user'
         )->with('status', 'vote berhasil diubah.');
     }
 
@@ -120,9 +109,21 @@ class VoteController extends Controller
      * @param  \App\Models\Vote  $vote
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vote $vote)
+    public function destroy(int $vote)
     {
-        vote::destroy($vote->id);
-        return redirect('vote')->with('status', 'vote berhasil dihapus.');
+        vote::destroy($vote);
+
+        app('auth')->user()->update([
+            'vote_id' => null
+        ]);
+
+        return redirect('vote-user')->with('status', 'vote berhasil dicancel.');
+    }
+
+    public function notifikasi(User $user)
+    {
+        $user->notify(new VoteNotification($user));
+
+        return redirect('vote-user')->with('status', 'berhasil memperingatkan user.');
     }
 }

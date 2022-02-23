@@ -11,7 +11,7 @@
                     <div class="card-body">
 
                         <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="{{ url('user/vote') }}" class="btn btn-primary">Vote Sekarang</a>
+                        <a href="{{ url('vote-start') }}" class="btn btn-primary">Vote Sekarang</a>
                     </div>
                 </div>
 

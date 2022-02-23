@@ -45,13 +45,13 @@ class ProfileController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit()
     {
         $data = [
-            'user' => $user,
+            'user' => app('auth')->user(),
         ];
 
-        return view('user.edit', $data);
+        return view('profile_edit', $data);
     }
 
     /**
@@ -126,7 +126,7 @@ class ProfileController extends Controller
         ]);
 
         return redirect(
-            'user'
+            '/user/show'
         )->with('status', 'user berhasil diubah.');
     }
 }

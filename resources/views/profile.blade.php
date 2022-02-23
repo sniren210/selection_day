@@ -25,12 +25,7 @@
                                     </li>
                                 </ul>
 
-                                <a href="{{ url('/user/' . $user->id . '/edit') }}"
-                                    class="btn btn-primary btn-block"><b>Edit</b></a>
-                                @if (!$user->user_verified_at)
-                                    <button type="button" class="btn btn-success btn-block" data-toggle="modal"
-                                        data-target="#verify{{ $user->id }}">Verify</button>
-                                @endif
+                                <a href="{{ url('/user/edit') }}" class="btn btn-primary btn-block"><b>Edit</b></a>
                             </div>
                             <!-- /.card-body -->
                         </div>

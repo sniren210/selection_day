@@ -8,8 +8,7 @@
                     <h5><i class="fas fa-info"></i> Note:</h5>
                     Sekali vote anda tidak akan bisa vote untuk kedua kalinya jadi pilih dengan hati-hati
                 </div>
-                <a href="{{ url('user/vote') }}" class="btn btn-primary btn-block .btn-lg"><i
-                        class="fa fa-bell"></i>Vote
+                <a href="{{ url('vote') }}" class="btn btn-primary btn-block .btn-lg"><i class="fa fa-bell"></i>Vote
                     Sekarang</a>
 
             </div>

@@ -21,16 +21,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [LandingController::class, 'index']);
-Route::get('/vote', [LandingController::class, 'vote']);
+Route::get('/vote-start', [LandingController::class, 'vote']);
 
-Route::prefix('user')->group(function () {
+Route::middleware(['auth'])->group(function () {
+    Route::get('/vote', [VoteController::class, 'vote']);
+    Route::post('/vote', [VoteController::class, 'vote_store']);
 
-    Route::middleware(['auth'])->group(function () {
-        Route::get('/vote', [VoteController::class, 'index']);
-        Route::post('/vote', [VoteController::class, 'store']);
-
-        Route::get('/show', [ProfileController::class, 'index']);
-    });
+    Route::get('/user/show', [ProfileController::class, 'index']);
+    Route::get('/user/edit', [ProfileController::class, 'edit']);
+    Route::put('/user/edit/{user}', [ProfileController::class, 'update']);
 });
 
 Auth::routes([
@@ -47,6 +46,13 @@ Route::middleware(['auth', 'userInvalid'])->group(function () {
 
     Route::resource('/candidate', CandidateController::class,);
 
-    // Route::get('/vote', [VoteController::class, 'index']);
-    Route::get('/vote-user', [VoteController::class, 'user']);
+    Route::get('/vote-user', [VoteController::class, 'index']);
+    Route::get('/vote-user/{vote}/edit', [VoteController::class, 'edit']);
+    Route::put('/vote-user/{vote}', [VoteController::class, 'update']);
+    Route::delete('/vote-user/{vote}', [VoteController::class, 'destroy']);
+    // Route::resource('/vote-user', VoteController::class, [
+    //     'except' => ['create', 'store'],
+    // ]);
+
+    Route::put('/vote-user/notification/{user}', [VoteController::class, 'notifikasi']);
 });

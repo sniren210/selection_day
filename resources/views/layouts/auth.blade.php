@@ -49,40 +49,43 @@
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
 
+                        <li class="nav-item ">
+                            <a href="{{ url('/') }}"
+                                class="nav-link  {{ Request::segment(1) === null ? 'active' : '' }}"> Home</a>
+                        </li>
+
+                        <li class="nav-item ">
+                            <a href="{{ url('/vote-start') }}"
+                                class="nav-link  {{ Request::segment(1) === 'vote-start' ? 'active' : '' }}">Vote</a>
+                        </li>
                         @guest
-                            <li class="nav-item ">
-                                <a href="{{ url('/vote') }}"
-                                    class="nav-link  {{ Request::segment(1) === 'vote' ? 'active' : '' }}">Vote</a>
-                            </li>
 
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">Login</a>
+                                    <a class="nav-link {{ Request::segment(1) === 'login' ? 'active' : '' }}"
+                                        href="{{ route('login') }}">Login</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">Register</a>
+                                    <a class="nav-link {{ Request::segment(1) === 'register' ? 'active' : '' }}"
+                                        href="{{ route('register') }}">Register</a>
                                 </li>
                             @endif
                         @else
                             <li class="nav-item ">
-                                <a href="{{ url('/') }}"
-                                    class="nav-link  {{ Request::segment(1) === null ? 'active' : '' }}"> Home</a>
-                            </li>
-                            <li class="nav-item ">
-                                <a href="{{ url('/user/' . Auth::user()->id) }}"
+                                <a href="{{ url('/user/show') }}"
                                     class="nav-link  {{ Request::segment(1) === 'user' ? 'active' : '' }}">Profile</a>
                             </li>
                             <li class="nav-item ">
-                                <a href="{{ url('/vote') }}"
-                                    class="nav-link  {{ Request::segment(1) === 'vote' ? 'active' : '' }}">Vote</a>
+                                <a href="{{ url('/vote-start') }}"
+                                    class="nav-link  {{ Request::segment(1) === 'vote-start' ? 'active' : '' }}">Vote</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('logout') }}" class="nav-link"
                                     onclick="event.preventDefault();
-                                                                                                                         document.getElementById('logout-form').submit();">Logout</a>
+                                                                                                                                                     document.getElementById('logout-form').submit();">Logout</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                     class="d-none">
                                     @csrf

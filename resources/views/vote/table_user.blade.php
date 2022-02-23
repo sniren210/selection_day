@@ -64,11 +64,19 @@
                                             @if (Auth::guard('web')->check())
                                                 <td>
                                                     @if ($data->vote)
-                                                        <a href="{{ url('/user/' . $data->id . '/edit') }}"
-                                                            class="badge badge-danger">Cancel vote</a>
+                                                        <button type="button" class="btn badge badge-danger"
+                                                            data-toggle="modal"
+                                                            data-target="#delete{{ $data->id }}">Cancel vote</button>
+                                                        <a href="{{ url('/vote-user/' . $data->vote_id . '/edit') }}"
+                                                            class="badge badge-success">Edit</a>
                                                     @else
-                                                        <a href="{{ url('/user/' . $data->id . '/edit') }}"
-                                                            class="badge badge-success">Peringatkan User</a>
+                                                        <form action="/vote-user/notification/{{ $data->id }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('put')
+                                                            <button type="submit" class="btn badge badge-info">Peringatkan
+                                                                User</button>
+                                                        </form>
                                                     @endif
 
                                                 </td>
@@ -108,20 +116,20 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Hapus User</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Cancel Vote</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        yakin ingin menghapus user ini ?
+                        yakin ingin mengcancel user ini ?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <form action="/user/{{ $data->id }}" method="POST">
+                        <form action="/vote-user/{{ $data->id }}" method="POST">
                             @csrf
                             @method('delete')
-                            <button type="submit" class="btn btn-danger">Hapus Data</button>
+                            <button type="submit" class="btn btn-danger">Cancel Data</button>
                         </form>
                     </div>
                 </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Candidate;
 use App\Models\User;
+use App\Notifications\VerifyNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -65,6 +66,10 @@ class UserController extends Controller
             'selfi' => $user->selfi,
             'vote_id' => $user->vote_id,
         ]);
+
+        $user->notify(new VerifyNotification($user));
+
+
         return redirect('user-verified')->with('status', 'user berhasil di verifikasi.');
     }
 
