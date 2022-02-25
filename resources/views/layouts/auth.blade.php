@@ -74,6 +74,12 @@
                                 </li>
                             @endif
                         @else
+                            @if (auth()->user()->level != 0)
+                                <li class="nav-item ">
+                                    <a href="{{ url('/dashboard') }}"
+                                        class="nav-link  {{ Request::segment(1) === 'dashboard' ? 'active' : '' }}">Dashboard</a>
+                                </li>
+                            @endif
                             <li class="nav-item ">
                                 <a href="{{ url('/user/show') }}"
                                     class="nav-link  {{ Request::segment(1) === 'user' ? 'active' : '' }}">Profile</a>
@@ -81,7 +87,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('logout') }}" class="nav-link"
                                     onclick="event.preventDefault();
-                                                                                                                                                         document.getElementById('logout-form').submit();">Logout</a>
+                                                                                                                                                                     document.getElementById('logout-form').submit();">Logout</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                     class="d-none">
                                     @csrf

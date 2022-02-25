@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Candidate;
 use App\Models\User;
+use App\Models\Vote;
+use App\Notifications\DeniedNotification;
 use App\Notifications\VerifyNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -57,6 +59,8 @@ class UserController extends Controller
     public function verify(Request $request, User $user)
     {
 
+        $user->notify(new VerifyNotification($user));
+
         user::where('id', $user->id)->update([
             'name' => $user->name,
             'email' => $user->email,
@@ -66,9 +70,6 @@ class UserController extends Controller
             'selfi' => $user->selfi,
             'vote_id' => $user->vote_id,
         ]);
-
-        $user->notify(new VerifyNotification($user));
-
 
         return redirect('user-verified')->with('status', 'user berhasil di verifikasi.');
     }
@@ -268,12 +269,18 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         user::destroy($user->id);
+        Vote::where('user_id', '=', $user->id)->delete();
+
         return redirect('user')->with('status', 'user berhasil dihapus.');
     }
 
     public function denied(User $user)
     {
         user::destroy($user->id);
+        Vote::where('user_id', '=', $user->id)->delete();
+
+        $user->notify(new DeniedNotification($user));
+
         return redirect('user-verified')->with('status', 'user dengan email ' . $user->email . ' berhasil di tolak.');
     }
 }

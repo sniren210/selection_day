@@ -106,6 +106,7 @@
                                             <option checked value="">Pilih Fakultas</option>
                                             <option value="ekonomi">Ekonomi</option>
                                             <option value="bisnis">Bisnis</option>
+                                            <option value="lainnya">Lainnya</option>
                                         </select>
                                         @error('fakultas')
                                             <span class="invalid-feedback" role="alert">
@@ -121,6 +122,7 @@
                                             <option value="MBTI">MBTI</option>
                                             <option value="ICT">ICT</option>
                                             <option value="Akuntansi">Akuntansi</option>
+                                            <option value="Lainnya">Lainnya</option>
                                         </select>
                                         @error('jurusan')
                                             <span class="invalid-feedback" role="alert">

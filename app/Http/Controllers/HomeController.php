@@ -22,8 +22,16 @@ class HomeController extends Controller
             'candidate' => Candidate::all(),
             'vote' => Vote::all(),
             'not_vote' => User::whereNotNull('user_verified_at')->get(),
-
         ];
+
+        $percentage = [];
+        $length = count($data['vote']);
+
+        foreach ($data['candidate'] as $key => $value) {
+            array_push($percentage, round((count($value->vote) / $length) * 100));
+        }
+
+        $data['percentage'] = $percentage;
 
         return view('dashboard', $data);
     }

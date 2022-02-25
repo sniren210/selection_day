@@ -108,6 +108,9 @@
                                             <option {{ $user->fakultas == 'bisnis' ? 'selected' : '' }} value="bisnis">
                                                 Bisnis
                                             </option>
+                                            <option {{ $user->fakultas == 'lainnya' ? 'selected' : '' }} value="lainnya">
+                                                Lainnya
+                                            </option>
                                         </select>
                                         @error('fakultas')
                                             <span class="invalid-feedback" role="alert">
@@ -126,6 +129,8 @@
                                             </option>
                                             <option {{ $user->jurusan == 'Akuntansi' ? 'selected' : '' }}
                                                 value="Akuntansi">Akuntansi</option>
+                                            <option {{ $user->jurusan == 'Lainnya' ? 'selected' : '' }} value="Lainnya">
+                                                Lainnya</option>
                                         </select>
                                         @error('jurusan')
                                             <span class="invalid-feedback" role="alert">

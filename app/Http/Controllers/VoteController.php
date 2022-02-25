@@ -31,9 +31,19 @@ class VoteController extends Controller
 
     public function vote()
     {
-        $data = [
-            'candidate' => Candidate::all(),
-        ];
+        if (app('auth')->user()->jurusan == 'MBTI') {
+            $data = [
+                'candidate' => Candidate::where('jurusan', '!=', 'Akuntansi')->get(),
+            ];
+        } else if (app('auth')->user()->jurusan == 'Akuntansi') {
+            $data = [
+                'candidate' => Candidate::where('jurusan', '!=', 'MBTI')->get(),
+            ];
+        } else {
+            $data = [
+                'candidate' => Candidate::all(),
+            ];
+        }
 
         if (app('auth')->user()->vote) {
             return view('vote_finish', $data);
@@ -49,7 +59,10 @@ class VoteController extends Controller
      */
     public function vote_store(Request $request)
     {
-
+        $request->validate(
+            $this->validasi,
+            $this->messages
+        );
 
         $res = Vote::create([
             'candidate_id' => $request->candidate,

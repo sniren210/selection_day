@@ -35,6 +35,14 @@
             </div>
         @endif
 
+        @if (session('failed'))
+            <div class="content">
+                <div class="alert alert-danger">
+                    {{ session('failed') }}
+                </div>
+            </div>
+        @endif
+
         <!-- Main content -->
         <section class="content">
             <div class="row">

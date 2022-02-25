@@ -234,13 +234,14 @@ die();
     </script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('') }}plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- ChartJS -->
-    <script src="{{ asset('') }}plugins/chart.js/Chart.min.js"></script>
+    <!-- FLOT CHARTS -->
+    <script src="{{ asset('') }}plugins/flot/jquery.flot.js"></script>
+    <!-- FLOT PIE PLUGIN - also used to draw donut charts -->
+    <script src="{{ asset('') }}plugins/flot/plugins/jquery.flot.pie.js"></script>
+    <!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+    <script src="{{ asset('') }}plugins/flot/plugins/jquery.flot.resize.js"></script>
     <!-- Sparkline -->
     <script src="{{ asset('') }}plugins/sparklines/sparkline.js"></script>
-    <!-- JQVMap -->
-    <script src="{{ asset('') }}plugins/jqvmap/jquery.vmap.min.js"></script>
-    <script src="{{ asset('') }}plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
     <!-- jQuery Knob Chart -->
     <script src="{{ asset('') }}plugins/jquery-knob/jquery.knob.min.js"></script>
     <!-- daterangepicker -->
@@ -256,8 +257,6 @@ die();
     <script src="{{ asset('') }}js/adminlte.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('') }}js/demo.js"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="{{ asset('') }}js/pages/dashboard.js"></script>
 
     @yield('js')
 </body>

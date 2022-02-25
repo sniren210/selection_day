@@ -59,7 +59,7 @@
                             <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">User Belum Approved</span>
+                                <span class="info-box-text">User Belum Vote</span>
                                 <span class="info-box-number">
                                     {{ count($not_vote) }}
 
@@ -95,7 +95,7 @@
                         <!-- DONUT CHART -->
                         <div class="card card-danger">
                             <div class="card-header">
-                                <h3 class="card-title">Donut Chart</h3>
+                                <h3 class="card-title">Persentasi hasil vote</h3>
 
                             </div>
                             <div class="card-body">
@@ -115,41 +115,30 @@
                         </div>
                         <!-- /.card -->
 
-
                     </div>
-                    <!-- /.col (LEFT) -->
+
                     <div class="col-md-6">
-
-
-                        <!-- BAR CHART -->
                         <div class="card card-success">
                             <div class="card-header">
-                                <h3 class="card-title">Bar Chart</h3>
+                                <h3 class="card-title">Persentasi hasil vote</h3>
 
                             </div>
                             <div class="card-body">
-                                <div class="chart">
-                                    <div class="chartjs-size-monitor">
-                                        <div class="chartjs-size-monitor-expand">
-                                            <div class=""></div>
-                                        </div>
-                                        <div class="chartjs-size-monitor-shrink">
-                                            <div class=""></div>
-                                        </div>
+                                <div class="chartjs-size-monitor">
+                                    <div class="chartjs-size-monitor-expand">
+                                        <div class=""></div>
                                     </div>
-                                    <canvas id="barChart"
-                                        style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 487px;"
-                                        width="487" height="250" class="chartjs-render-monitor"></canvas>
+                                    <div class="chartjs-size-monitor-shrink">
+                                        <div class=""></div>
+                                    </div>
                                 </div>
+                                <canvas id="pieChart"
+                                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 487px;"
+                                    width="487" height="250" class="chartjs-render-monitor"></canvas>
                             </div>
                             <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
-
-
-
                     </div>
-                    <!-- /.col (RIGHT) -->
                 </div>
 
                 <!-- /.card -->
@@ -197,6 +186,14 @@
 
     <script>
         $(function() {
+            var candidate = <?php echo json_encode($candidate); ?>;
+            var percentage = <?php echo json_encode($percentage); ?>;
+            var labels = [];
+
+
+            candidate.forEach(data => {
+                labels.push(data.name)
+            });
             /* ChartJS
              * -------
              * Here we will create a few charts using ChartJS
@@ -210,22 +207,35 @@
             // Get context with jQuery - using jQuery's .get() method.
             var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
             var donutData = {
-                labels: [
-                    'Chrome',
-                    'IE',
-                    'FireFox',
-                    'Safari',
-                    'Opera',
-                    'Navigator',
-                ],
+                labels: labels,
                 datasets: [{
-                    data: ['700 %', 500, 400, 600, 300, 100],
-                    backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+                    data: percentage,
+                    backgroundColor: [
+                        'salmon',
+                        'aqua',
+                        'lime',
+                        'pink',
+                        'teal',
+                        'royalblue',
+                        'burlywood',
+                        'lavender',
+                        'grey',
+                        'violet',
+                        'tomato',
+                    ],
                 }]
             }
             var donutOptions = {
                 maintainAspectRatio: false,
                 responsive: true,
+                tooltips: {
+                    callbacks: {
+                        label: function(index, data) {
+                            console.log(data.datasets[0].data[index.index]);
+                            return data.datasets[0].data[index.index] + "%"
+                        }
+                    }
+                }
             }
             //Create pie or douhnut chart
             // You can switch between pie and douhnut using the method below.
@@ -235,57 +245,24 @@
                 options: donutOptions
             })
 
-
-
-            var areaChartData = {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                datasets: [{
-                        label: 'Digital Goods',
-                        backgroundColor: 'rgba(60,141,188,0.9)',
-                        borderColor: 'rgba(60,141,188,0.8)',
-                        pointRadius: false,
-                        pointColor: '#3b8bba',
-                        pointStrokeColor: 'rgba(60,141,188,1)',
-                        pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(60,141,188,1)',
-                        data: [28, 48, 40, 19, 86, 27, 90]
-                    },
-                    {
-                        label: 'Electronics',
-                        backgroundColor: 'rgba(210, 214, 222, 1)',
-                        borderColor: 'rgba(210, 214, 222, 1)',
-                        pointRadius: false,
-                        pointColor: 'rgba(210, 214, 222, 1)',
-                        pointStrokeColor: '#c1c7d1',
-                        pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(220,220,220,1)',
-                        data: [65, 59, 80, 81, 56, 55, 40]
-                    },
-                ]
-            }
-
-
             //-------------
-            //- BAR CHART -
+            //- PIE CHART -
             //-------------
-            var barChartCanvas = $('#barChart').get(0).getContext('2d')
-            var barChartData = $.extend(true, {}, areaChartData)
-            var temp0 = areaChartData.datasets[0]
-            var temp1 = areaChartData.datasets[1]
-            barChartData.datasets[0] = temp1
-            barChartData.datasets[1] = temp0
-
-            var barChartOptions = {
-                responsive: true,
+            // Get context with jQuery - using jQuery's .get() method.
+            var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+            var pieData = donutData;
+            var pieOptions = {
                 maintainAspectRatio: false,
-                datasetFill: false
+                responsive: true,
             }
-
-            new Chart(barChartCanvas, {
-                type: 'bar',
-                data: barChartData,
-                options: barChartOptions
+            //Create pie or douhnut chart
+            // You can switch between pie and douhnut using the method below.
+            new Chart(pieChartCanvas, {
+                type: 'pie',
+                data: pieData,
+                options: pieOptions
             })
+
 
         })
     </script>

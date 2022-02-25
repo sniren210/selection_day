@@ -7,7 +7,7 @@
         <div class="container">
             <section class="content">
                 <div class="row justify-content-between">
-                    @foreach ($candidate as $data)
+                    @foreach ($candidate as $key => $data)
                         <div class="col-4" id="accordion">
                             <div class="card card-primary card-outline">
                                 <a class="d-block w-100 collapsed" data-toggle="collapse"
@@ -18,8 +18,10 @@
                                         <h4 class="font-weight-bold text-center my-2">{{ $data->name }} </h4>
                                     </div>
                                 </a>
-                                <div id="collapseOne{{ $data->id }}" class="collapse" data-parent="#accordion"
-                                    style="">
+                                <label class="text-center">{{ $data->jurusan }} </label>
+                                <label class="text-center">{{ $data->fakultas }} </label>
+                                <div id="collapseOne{{ $data->id }}" class="collapse {{ $key == 0 ? 'show' : '' }}"
+                                    data-parent="#accordion" style="">
                                     <div class="card-body">
                                         <h5>Visi</h5>
                                         <p>{{ $data->visi }}</p>
@@ -33,7 +35,7 @@
                                             id="customRadio2{{ $data->id }}" name="candidate"
                                             value="{{ $data->id }}">
                                         <label for="customRadio2{{ $data->id }}" class="custom-control-label">Vote
-                                            Kandidat ini</label>
+                                            {{ $data->name }} </label>
                                     </div>
                                 </div>
                             </div>
