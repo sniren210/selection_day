@@ -18,13 +18,13 @@ class HomeController extends Controller
     public function index()
     {
         $data = [
-            'user' => User::all(),
-            // 'candidate' => Candidate::all(),
+            'user' => User::where('level', '=', '0')->get(),
             'candidate_BEM' => Candidate::where('jenis', '=', 'BEM')->get(),
             'candidate_DPM' => Candidate::where('jenis', '=', 'DPM')->get(),
             'candidate_HIMA' => Candidate::where('jenis', '=', 'HIMA')->get(),
             'candidate_HIMAKU' => Candidate::where('jenis', '=', 'HIMAKU')->get(),
-            'not_vote' => User::whereNotNull('user_verified_at')->get(),
+            'not_verify' => User::where('level', '=', '0')->whereNull('user_verified_at')->get(),
+            'not_vote' => User::where('vote', '<', '2')->whereNull('vote')->get(),
             'vote_BEM' => [],
             'vote_DPM' => [],
             'vote_HIMA' => [],

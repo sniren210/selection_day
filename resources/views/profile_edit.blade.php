@@ -75,8 +75,15 @@
                                         <select class="custom-select @error('level') is-invalid @enderror" name="level">
                                             <option checked value="">Pilih user level</option>
                                             <option {{ $user->level == 0 ? 'selected' : '' }} value="0">User</option>
-                                            <option {{ $user->level == 1 ? 'selected' : '' }} value="1">Admin</option>
-                                            <option {{ $user->level == 2 ? 'selected' : '' }} value="2">Saksi</option>
+                                            <option {{ $user->level == 1 ? 'selected' : '' }} value="1">Saksi</option>
+                                            @if (auth()->user()->level == 3)
+                                                <option {{ $user->level == 2 ? 'selected' : '' }} value="2">Admin</option>
+                                            @endif
+
+                                            @if (auth()->user()->level == 3)
+                                                <option {{ $user->level == 3 ? 'selected' : '' }} value="3">SuperAdmin
+                                                </option>
+                                            @endif
                                         </select>
                                         @error('level')
                                             <span class="invalid-feedback" role="alert">
@@ -84,26 +91,6 @@
                                             </span>
                                         @enderror
                                     </div>
-
-                                    <div class="form-group">
-                                        <label>Fakultas</label>
-                                        <select class="custom-select @error('fakultas') is-invalid @enderror"
-                                            name="fakultas">
-                                            <option checked value="">Pilih Fakultas</option>
-                                            <option {{ $user->fakultas == 'ekonomi' ? 'selected' : '' }} value="ekonomi">
-                                                Ekonomi
-                                            </option>
-                                            <option {{ $user->fakultas == 'bisnis' ? 'selected' : '' }} value="bisnis">
-                                                Bisnis
-                                            </option>
-                                        </select>
-                                        @error('fakultas')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
                                     <div class="form-group">
                                         <label>Jurusan</label>
                                         <select class="custom-select @error('jurusan') is-invalid @enderror" name="jurusan">

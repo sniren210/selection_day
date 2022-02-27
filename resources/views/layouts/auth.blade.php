@@ -4,12 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fintch Website by fintch team">
-    <meta name="keywords" content="Fintch web, fintch ,fintch ">
+    <meta name="title" content="Pemilu Raya FEB TEL-U">
+    <meta name="description" content="Pemilihan Raya Fakultas Ekonomi dan BIsnis Telkom University.">
+    <meta name="keywords" content="PemiraFeb,Pemilu pemilihan,Pemilu Raya FEB TEL-U,Telkom University">
     <meta http-equiv="Copyright" content="Sniren-ren">
     <meta name="author" content="Sniren-ren">
-    <meta itemprop="image" content="{{ asset('img/favicon.ico') }}">
-    <link rel="shortcut icon" type="image/jpg" href="{{ asset('img/favicon.ico') }}" />
+
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('img/favicon-16x16.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('img/favicon-32x32.png')}}">
 
     <title>{{ config('app.name') }} | {{ $title }}</title>
 
@@ -38,7 +40,12 @@
     <div class="wrapper">
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
-                <a href="{{ url('./') }}" class="brand-text font-weight-bold">{{ config('app.name') }}</a>
+                <a href="{{ url('./') }}" class="navbar-brand">
+                    <img src="{{ asset('./img/PEMIRA.png') }}" alt="PEMIRA"
+                        class="brand-image img-circle elevation-3 mx-2">
+                    <img src="{{ asset('./img/BPR.png') }}" alt="BPR" class="brand-image img-circle elevation-3 mx-2">
+                    <img src="{{ asset('./img/KPR.png') }}" alt="KPR" class="brand-image img-circle elevation-3 mx-2">
+                </a>
 
                 <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,7 +94,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('logout') }}" class="nav-link"
                                     onclick="event.preventDefault();
-                                                                                                                                                                     document.getElementById('logout-form').submit();">Logout</a>
+                                                                                                                                                                                                                         document.getElementById('logout-form').submit();">Logout</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                     class="d-none">
                                     @csrf
@@ -107,7 +114,7 @@
         <footer class="main-footer">
             <div class="container">
 
-                <strong>Copyright &copy; 2021 <a href="mailto:fintch.team@gmail.com">Fintch tech</a>.</strong>
+                <strong>Copyright &copy; 2021 <a href="mailto:femirafeb@gmail.com">FemiraFeb</a>.</strong>
                 All rights reserved.
             </div>
         </footer>

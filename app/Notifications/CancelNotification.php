@@ -41,9 +41,10 @@ class CancelNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->greeting('Dear ' . $notifiable->name)
+            ->line('Mohon maaf, vote kamu ditolak oleh admin, silahkan vote kembali di pemirafeb.site atau klik tombol dibawah ini.')
+            ->action('Vote Sekarang', url('http://pemirafeb.site/vote-start'))
+            ->line('Terima kasih telah menggunakan pemirafeb.site, jika ada masalah terkait penggunaan website, harap hubungi admin atau chat contact person berikut:081234567890');
     }
 
     /**

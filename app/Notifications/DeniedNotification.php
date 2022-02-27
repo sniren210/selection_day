@@ -41,9 +41,12 @@ class DeniedNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->greeting('Dear ' . $notifiable->name)
+            ->line('Mohon maaf, akun kamu ditolak oleh admin, silahkan register kembali untuk melakukan pendaftaran di pemirafeb.site atau klik tombol dibawah ini.')
+            ->action('Vote Sekarang', url('http://pemirafeb.site/register'))
+            ->line('atau, hubungi contact person yang disediakan.')
+            ->line('Terima kasih telah melakukan register di pemirafeb.site, jika ada masalah terkait penggunaan website, harap hubungi admin atau chat contact person berikut:
+            081234567890');
     }
 
     /**

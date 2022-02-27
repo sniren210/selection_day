@@ -36,17 +36,10 @@
                     <div class="col-md-9">
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">About Me</h3>
+                                <h3 class="card-title">Tentang saya</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <strong><i class="fas fa-book mr-1"></i> Fakultas</strong>
-
-                                <p class="text-muted">
-                                    {{ $user->fakultas }}
-                                </p>
-
-                                <hr>
 
                                 <strong><i class="fas fa-map-marker-alt mr-1"></i> Jurusan</strong>
 

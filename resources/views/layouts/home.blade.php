@@ -9,12 +9,15 @@ die();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Fintch Website by fintch team">
-    <meta name="keywords" content="Fintch web, fintch ,fintch ">
+    <meta name="title" content="Pemilu Raya FEB TEL-U">
+    <meta name="description" content="Pemilihan Raya Fakultas Ekonomi dan BIsnis Telkom University.">
+    <meta name="keywords" content="PemiraFeb,Pemilu pemilihan,Pemilu Raya FEB TEL-U,Telkom University">
     <meta http-equiv="Copyright" content="Sniren-ren">
     <meta name="author" content="Sniren-ren">
-    <meta itemprop="image" content="{{ asset('img/favicon.ico') }}">
-    <link rel="shortcut icon" type="image/jpg" href="{{ asset('img/favicon.ico') }}" />
+
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('img/favicon-16x16.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('img/favicon-32x32.png')}}">
+
     <title>{{ config('app.name') }} | Dashboard</title>
 
     <!-- CSRF Token -->

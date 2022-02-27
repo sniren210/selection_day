@@ -9,7 +9,15 @@ class LandingController extends Controller
 {
     public function index()
     {
-        return view('home');
+        $data = [
+            'candidate_BEM' => Candidate::where('jenis', '=', 'BEM')->get(),
+            'candidate_DPM' => Candidate::where('jenis', '=', 'DPM')->get(),
+            'candidate_HIMA' => Candidate::where('jenis', '=', 'HIMA')->get(),
+            'candidate_HIMAKU' => Candidate::where('jenis', '=', 'HIMAKU')->get(),
+            // 'candidate' => Candidate::all(),
+        ];
+
+        return view('home', $data);
     }
 
     public function vote()

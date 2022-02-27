@@ -40,11 +40,11 @@ class VoteNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        // dd($notifiable->name);
         return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->greeting('Dear ' . $notifiable->name)
+            ->line('Halo ' . $notifiable->name . ' , Masa Voting telah dibuka dari tanggal 28 Februari - 2 Maret 2022, Silahkan Vote untuk memilih kandidat sesuai dengan kata hati sendiri dengan cara klik tombol dibawah ini.')
+            ->action('Vote Sekarang', url('http://pemirafeb.site/vote-start'))
+            ->line('Terima kasih telah menggunakan pemirafeb.site, jika ada masalah terkait penggunaan website, harap hubungi admin atau chat contact person berikut:081234567890');
     }
 
     /**

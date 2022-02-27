@@ -82,7 +82,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputFile">Upload KTM/KTM Digital</label>
                                             <div class="card">
-                                                <img class="img card-img-top" id="img-ktn" src="/img/default-150x150.png"
+                                                <img class="img card-img-top" id="img-ktn" src="/img/upload ktm.png"
                                                     alt="Photo">
 
                                                 <div class="card-body">
@@ -113,7 +113,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputFile">Upload foto selfie dengan KTM</label>
                                             <div class="card">
-                                                <img class="img card-img-top" id="img-selfi" src="/img/default-150x150.png"
+                                                <img class="img card-img-top" id="img-selfi" src="/img/upload selfie.png"
                                                     alt="Photo">
 
                                                 <div class="card-body">
@@ -144,11 +144,15 @@
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary" style="width: 100%">Submit</button>
+                                <button type="submit" class="btn btn-primary" style="width: 100%">Daftar</button>
                             </div>
 
                         </form>
                     </div>
+                    <p class="mb-1">
+                        Sudah punya akun?
+                        <a href="{{ route('login') }}"> Login disini</a>
+                    </p>
                 </div>
             </div>
         </div>

@@ -21,12 +21,12 @@
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box">
-                            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+                            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Jumlah yg Vote</span>
+                                <span class="info-box-text">User belum Vote</span>
                                 <span class="info-box-number">
-                                    {{-- {{ count($vote) }} --}}
+                                    {{ count($not_vote) }}
                                 </span>
                             </div>
                             <!-- /.info-box-content -->
@@ -36,12 +36,12 @@
                     <!-- /.col -->
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box mb-3">
-                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
+                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-users"></i></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Jumlah Kandidat</span>
                                 <span class="info-box-number">
-                                    {{-- {{ count($candidate) }} --}}
+                                    {{ count($candidate_BEM) + count($candidate_DPM) + count($candidate_HIMA) + count($candidate_HIMAKU) }}
 
                                 </span>
                             </div>
@@ -56,12 +56,12 @@
 
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box mb-3">
-                            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+                            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-users"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">User Belum Vote</span>
+                                <span class="info-box-text">User Belum Verify</span>
                                 <span class="info-box-number">
-                                    {{ count($not_vote) }}
+                                    {{ count($not_verify) }}
 
                                 </span>
                             </div>
@@ -89,13 +89,46 @@
                 </div>
                 <!-- /.row -->
 
+
+
+                <!-- /.card -->
                 <div class="row">
+
+                    <div class="col-md-6">
+                        <!-- USERS LIST -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Kandidat BEM FEB</h3>
+
+                                <div class="card-tools">
+                                    <span class="badge badge-danger">{{ count($candidate_BEM) }} Kandidat</span>
+                                </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body p-0">
+                                <ul class="users-list clearfix">
+                                    @foreach ($candidate_BEM as $item)
+                                        <li>
+                                            <img src="./img/candidate/{{ $item->image }}" alt="User Image">
+                                            <a class="users-list-name" href="#">{{ $item->name }} </a>
+                                            <span class="users-list-date">{{ $item->fakultas }} </span>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <!-- /.users-list -->
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!--/.card -->
+                    </div>
+                    <!-- /.col -->
+
                     <div class="col-md-6">
 
                         <!-- DONUT CHART -->
                         <div class="card card-danger">
                             <div class="card-header">
-                                <h3 class="card-title">Persentasi hasil vote BEM</h3>
+                                <h3 class="card-title">Persentasi hasil vote BEM FEB</h3>
 
                             </div>
                             <div class="card-body">
@@ -116,11 +149,44 @@
                         <!-- /.card -->
 
                     </div>
+                </div>
+                <!-- /.row -->
+                <!-- /.card -->
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <!-- USERS LIST -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Kandidat DPM FEB</h3>
+
+                                <div class="card-tools">
+                                    <span class="badge badge-danger">{{ count($candidate_DPM) }} Kandidat</span>
+                                </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body p-0">
+                                <ul class="users-list clearfix">
+                                    @foreach ($candidate_DPM as $item)
+                                        <li>
+                                            <img src="./img/candidate/{{ $item->image }}" alt="User Image">
+                                            <a class="users-list-name" href="#">{{ $item->name }} </a>
+                                            <span class="users-list-date">{{ $item->fakultas }} </span>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <!-- /.users-list -->
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!--/.card -->
+                    </div>
+                    <!-- /.col -->
 
                     <div class="col-md-6">
                         <div class="card card-success">
                             <div class="card-header">
-                                <h3 class="card-title">Persentasi hasil vote DPM</h3>
+                                <h3 class="card-title">Persentasi hasil vote DPM FEB</h3>
 
                             </div>
                             <div class="card-body">
@@ -140,14 +206,45 @@
                         </div>
                     </div>
                 </div>
-
+                <!-- /.row -->
+                <!-- /.card -->
                 <div class="row">
+
+                    <div class="col-md-6">
+                        <!-- USERS LIST -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Kandidat HIMA MBTI</h3>
+
+                                <div class="card-tools">
+                                    <span class="badge badge-danger">{{ count($candidate_HIMA) }} Kandidat</span>
+                                </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body p-0">
+                                <ul class="users-list clearfix">
+                                    @foreach ($candidate_HIMA as $item)
+                                        <li>
+                                            <img src="./img/candidate/{{ $item->image }}" alt="User Image">
+                                            <a class="users-list-name" href="#">{{ $item->name }} </a>
+                                            <span class="users-list-date">{{ $item->fakultas }} </span>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <!-- /.users-list -->
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!--/.card -->
+                    </div>
+                    <!-- /.col -->
+
                     <div class="col-md-6">
 
                         <!-- DONUT CHART -->
                         <div class="card card-info">
                             <div class="card-header">
-                                <h3 class="card-title">Persentasi hasil vote HIMA</h3>
+                                <h3 class="card-title">Persentasi hasil vote HIMA MBTI</h3>
 
                             </div>
                             <div class="card-body">
@@ -168,6 +265,39 @@
                         <!-- /.card -->
 
                     </div>
+                </div>
+                <!-- /.row -->
+                <!-- /.card -->
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <!-- USERS LIST -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Kandidat HIMAKU</h3>
+
+                                <div class="card-tools">
+                                    <span class="badge badge-danger">{{ count($candidate_HIMAKU) }} Kandidat</span>
+                                </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body p-0">
+                                <ul class="users-list clearfix">
+                                    @foreach ($candidate_HIMAKU as $item)
+                                        <li>
+                                            <img src="./img/candidate/{{ $item->image }}" alt="User Image">
+                                            <a class="users-list-name" href="#">{{ $item->name }} </a>
+                                            <span class="users-list-date">{{ $item->fakultas }} </span>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <!-- /.users-list -->
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!--/.card -->
+                    </div>
+                    <!-- /.col -->
 
                     <div class="col-md-6">
                         <div class="card card-warning">
@@ -191,39 +321,6 @@
                             <!-- /.card-body -->
                         </div>
                     </div>
-                </div>
-
-                <!-- /.card -->
-                <div class="row">
-
-                    <div class="col-md-12">
-                        <!-- USERS LIST -->
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Kandidat</h3>
-
-                                <div class="card-tools">
-                                    <span class="badge badge-danger">8 Kandidat</span>
-                                </div>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body p-0">
-                                <ul class="users-list clearfix">
-                                    {{-- @foreach ($candidate as $item)
-                                        <li>
-                                            <img src="./img/candidate/{{ $item->image }}" alt="User Image">
-                                            <a class="users-list-name" href="#">{{ $item->name }} </a>
-                                            <span class="users-list-date">{{ $item->fakultas }} </span>
-                                        </li>
-                                    @endforeach --}}
-                                </ul>
-                                <!-- /.users-list -->
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                        <!--/.card -->
-                    </div>
-                    <!-- /.col -->
                 </div>
                 <!-- /.row -->
             </div>
@@ -369,6 +466,19 @@
                 }]
             }
 
+            var donutOptions = {
+                maintainAspectRatio: false,
+                responsive: true,
+                tooltips: {
+                    callbacks: {
+                        label: function(index, data) {
+                            console.log(data.datasets[0].data[index.index]);
+                            return data.datasets[0].data[index.index] + "%"
+                        }
+                    }
+                }
+            }
+
 
             //Create pie or douhnut chart
             // You can switch between pie and douhnut using the method below.
@@ -396,19 +506,6 @@
                 options: donutOptions
             })
 
-
-            var donutOptions = {
-                maintainAspectRatio: false,
-                responsive: true,
-                tooltips: {
-                    callbacks: {
-                        label: function(index, data) {
-                            console.log(data.datasets[0].data[index.index]);
-                            return data.datasets[0].data[index.index] + "%"
-                        }
-                    }
-                }
-            }
 
         })
     </script>

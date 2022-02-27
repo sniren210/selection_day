@@ -67,14 +67,14 @@
                             </div>
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary" style="width: 100%">Submit</button>
+                                <button type="submit" class="btn btn-primary" style="width: 100%">Masuk</button>
                             </div>
 
 
                         </form>
                     </div>
                     <p class="mb-1">
-                        Belum punya akun
+                        Belum punya akun ?
                         <a href="{{ route('register') }}">Klik disini</a>
                     </p>
                 </div>
