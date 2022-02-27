@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Candidate;
 use App\Http\Requests\StoreCandidateRequest;
 use App\Http\Requests\UpdateCandidateRequest;
+use App\Models\Vote;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -14,8 +15,7 @@ class CandidateController extends Controller
         'name' => ['required', 'string'],
         'visi' => ['required', 'string'],
         'misi' => ['required', 'string'],
-        'fakultas' => ['required', 'string'],
-        'jurusan' => ['required', 'string'],
+        'jenis' => ['required', 'string'],
         'image' => ['required', 'file', 'image', 'mimes:jpeg,png,jpg'],
     ];
 
@@ -23,8 +23,7 @@ class CandidateController extends Controller
         'name' => ['required', 'string'],
         'visi' => ['required', 'string'],
         'misi' => ['required', 'string'],
-        'fakultas' => ['required', 'string'],
-        'jurusan' => ['required', 'string'],
+        'jenis' => ['required', 'string'],
         'image' => ['file', 'image', 'mimes:jpeg,png,jpg'],
     ];
     /**
@@ -32,11 +31,31 @@ class CandidateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = [
-            'candidate' => Candidate::all(),
-        ];
+        // dd($request->get('jenis'));
+        if ($request->get('jenis') == 'BEM') {
+
+            $data = [
+                'candidate' => Candidate::where('jenis', '=', 'BEM')->get(),
+            ];
+        } else if ($request->get('jenis') == 'DPM') {
+            $data = [
+                'candidate' => Candidate::where('jenis', '=', 'DPM')->get(),
+            ];
+        } else if ($request->get('jenis') == 'HIMA') {
+            $data = [
+                'candidate' => Candidate::where('jenis', '=', 'HIMA')->get(),
+            ];
+        } else if ($request->get('jenis') == 'HIMAKU') {
+            $data = [
+                'candidate' => Candidate::where('jenis', '=', 'HIMAKU')->get(),
+            ];
+        } else {
+            $data = [
+                'candidate' => Candidate::all(),
+            ];
+        }
 
         return view('candidate.table', $data);
     }
@@ -103,8 +122,7 @@ class CandidateController extends Controller
             'visi' => $request->visi,
             'misi' => $request->misi,
             'image' =>  $request->image->originalName,
-            'jurusan' => $request->jurusan,
-            'fakultas' => $request->fakultas,
+            'jenis' => $request->jenis,
         ]);
         return redirect('candidate')->with('status', 'kandidat berhasil ditambahkan.');
     }
@@ -167,8 +185,7 @@ class CandidateController extends Controller
             'visi' => $request->visi,
             'misi' => $request->misi,
             'image' =>  $request->image->originalName ?? $candidate->image,
-            'fakultas' => $request->fakultas,
-            'jurusan' => $request->jurusan,
+            'jenis' => $request->jenis,
         ]);
 
         return redirect(
@@ -185,6 +202,8 @@ class CandidateController extends Controller
     public function destroy(Candidate $candidate)
     {
         Candidate::destroy($candidate->id);
+        Vote::where('candidate_id', '=', $candidate->id)->delete();
+
         return redirect('candidate')->with('status', 'kandidat berhasil dihapus.');
     }
 }

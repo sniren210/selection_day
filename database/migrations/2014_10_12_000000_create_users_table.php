@@ -20,9 +20,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('user_verified_at')->nullable();
             $table->string('ktn')->default('default.png');
             $table->string('selfi')->default('default.png');
-            $table->string('vote_id')->nullable();
+            $table->integer('vote')->nullable();
             $table->string('password');
-            $table->string('fakultas');
             $table->string('jurusan');
             $table->integer('level');
             $table->rememberToken();

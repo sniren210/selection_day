@@ -53,7 +53,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Name</th>
-                                        <th>Fakultas</th>
+                                        <th>jenis</th>
                                         <th>Profile</th>
                                         @if (Auth::guard('web')->check())
                                             <th>Aksi</th>
@@ -65,14 +65,14 @@
                                         <tr>
                                             <td>{{ $loop->iteration }} </td>
                                             <td>{{ $data->name }} </td>
-                                            <td>{{ $data->fakultas }} </td>
+                                            <td>{{ $data->jenis }} </td>
                                             <td>
                                                 <img class="profile-user-img img-fluid img-circle"
                                                     src="./img/candidate/{{ $data->image }}" alt="User profile picture">
                                             </td>
                                             @if (Auth::guard('web')->check())
                                                 <td>
-                                                     <a href="{{ url('/candidate/' . $data->id) }}"
+                                                    <a href="{{ url('/candidate/' . $data->id) }}"
                                                         class="badge badge-info">Show</a>
                                                     <a href="{{ url('/candidate/' . $data->id . '/edit') }}"
                                                         class="badge badge-success">Edit</a>
@@ -87,7 +87,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Name</th>
-                                        <th>Fakultas</th>
+                                        <th>jenis</th>
                                         <th>Profile</th>
                                         @if (Auth::guard('web')->check())
                                             <th>Aksi</th>

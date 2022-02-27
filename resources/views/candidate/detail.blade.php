@@ -26,7 +26,7 @@
 
                                 <div class="text-center">
                                     <img class="profile-user-img img-fluid img-circle"
-                                        src="{{ asset('img/profile') }}/{{ $candidate->image }}"
+                                        src="{{ asset('img/candidate') }}/{{ $candidate->image }}"
                                         alt="{{ $candidate->name }} profile picture">
                                 </div>
 
@@ -44,21 +44,15 @@
                     <div class="col-md-9">
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">About Me</h3>
+                                <h3 class="card-title">Tentang kandidat</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <strong><i class="fas fa-book mr-1"></i> Fakultas</strong>
+                                <strong><i class="fas fa-book mr-1"></i>Jenis</strong>
 
                                 <p class="text-muted">
-                                    {{ $candidate->fakultas }}
+                                    {{ $candidate->jenis }}
                                 </p>
-
-                                <hr>
-
-                                <strong><i class="fas fa-map-marker-alt mr-1"></i> Jurusan</strong>
-
-                                <p class="text-muted">{{ $candidate->jurusan }}</p>
 
                                 <hr>
 

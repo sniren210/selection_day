@@ -19,31 +19,34 @@ class UserSeeder extends Seeder
             [
                 'name' => 'user123',
                 'email' => 'user@gmail.com',
-                'fakultas' => 'ekonomi',
                 'jurusan' => 'MBTI',
                 'user_verified_at' => date('Y-m-d h:i:s'),
                 'password' => app('hash')->make('user123'),
                 'level' => 0,
-                'vote_id' => 1
-
             ],
             [
                 'name' => 'admin123',
                 'email' => 'admin@gmail.com',
-                'fakultas' => 'ekonomi',
                 'jurusan' => 'MBTI',
                 'user_verified_at' => date('Y-m-d h:i:s'),
                 'password' => app('hash')->make('admin123'),
-                'level' => 1
+                'level' => 2
             ],
             [
                 'name' => 'saksi123',
                 'email' => 'saksi@gmail.com',
-                'fakultas' => 'ekonomi',
                 'jurusan' => 'MBTI',
                 'user_verified_at' => date('Y-m-d h:i:s'),
                 'password' => app('hash')->make('saksi123'),
-                'level' => 2
+                'level' => 1
+            ],
+            [
+                'name' => 'super123',
+                'email' => 'super@gmail.com',
+                'jurusan' => 'MBTI',
+                'user_verified_at' => date('Y-m-d h:i:s'),
+                'password' => app('hash')->make('super123'),
+                'level' => 3
             ],
         ));
     }

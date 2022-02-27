@@ -5,10 +5,21 @@
         @csrf
 
         <div class="container">
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>{{ $teks }} </h1>
+                        </div>
+
+                    </div>
+                </div><!-- /.container-fluid -->
+            </section>
+
             <section class="content">
                 <div class="row justify-content-between">
                     @foreach ($candidate as $key => $data)
-                        <div class="col-4" id="accordion">
+                        <div class="col-lg-4 col-md-6 col-sm-12 " id="accordion">
                             <div class="card card-primary card-outline">
                                 <a class="d-block w-100 collapsed" data-toggle="collapse"
                                     href="#collapseOne{{ $data->id }}" aria-expanded="false">

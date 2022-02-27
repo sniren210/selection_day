@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -26,9 +27,8 @@ class User extends Authenticatable
         'user_verified_at',
         'ktn',
         'selfi',
-        'vote_id',
+        'vote',
         'level',
-        'fakultas',
         'jurusan',
     ];
 
@@ -42,13 +42,18 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function user(): HasOne
+    // public function user(): HasOne
+    // {
+    //     return $this->hasOne(User::class, 'user_id');
+    // }
+
+    public function vote_candidate(): HasMany
     {
-        return $this->hasOne(User::class, 'user_id');
+        return $this->hasMany(Vote::class, 'user_id');
     }
 
-    public function vote(): BelongsTo
-    {
-        return $this->belongsTo(Vote::class, 'vote_id');
-    }
+    // public function vote(): BelongsTo
+    // {
+    //     return $this->belongsTo(Vote::class, 'vote_id');
+    // }
 }

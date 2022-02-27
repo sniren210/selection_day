@@ -27,18 +27,17 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form method="POST" action="/vote-user/{{ $vote->id }}" enctype="multipart/form-data">
+                            <form method="POST" action="/vote-user/{{ $user->id }}" enctype="multipart/form-data">
                                 @csrf
                                 @method('put')
+
                                 <div class="card-body">
 
                                     <div class="form-group">
-                                        <label>Fakultas</label>
-                                        <select class="custom-select @error('candidate') is-invalid @enderror"
-                                            name="candidate">
-                                            <option checked value="">Pilih Fakultas</option>
-                                            @foreach ($candidate as $item)
-                                                <option {{ $item->id == $vote->candidate_id ? 'selected' : '' }}
+                                        <label>Jenis Kandidat BEM</label>
+                                        <select class="custom-select @error('candidate') is-invalid @enderror" name="BEM">
+                                            @foreach ($candidate_BEM as $item)
+                                                <option {{ $item->id == $BEM->candidate_id ? 'selected' : '' }}
                                                     value="{{ $item->id }}">
                                                     {{ $item->name }}
                                                 </option>
@@ -50,6 +49,63 @@
                                             </span>
                                         @enderror
                                     </div>
+
+                                    <div class="form-group">
+                                        <label>Jenis Kandidat DPM</label>
+                                        <select class="custom-select @error('candidate') is-invalid @enderror" name="DPM">
+                                            @foreach ($candidate_DPM as $item)
+                                                <option {{ $item->id == $DPM->candidate_id ? 'selected' : '' }}
+                                                    value="{{ $item->id }}">
+                                                    {{ $item->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('candidate')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    @if (isset($HIMA))
+                                        <div class="form-group">
+                                            <label>Jenis Kandidat HIMA</label>
+                                            <select class="custom-select @error('candidate') is-invalid @enderror"
+                                                name="HIMA">
+                                                @foreach ($candidate_HIMA as $item)
+                                                    <option {{ $item->id == $HIMA->candidate_id ? 'selected' : '' }}
+                                                        value="{{ $item->id }}">
+                                                        {{ $item->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('candidate')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    @endif
+
+                                    @if (isset($HIMAKU))
+                                        <div class="form-group">
+                                            <label>Jenis Kandidat HIMAKU</label>
+                                            <select class="custom-select @error('candidate') is-invalid @enderror"
+                                                name="HIMAKU">
+                                                @foreach ($candidate_HIMAKU as $item)
+                                                    <option {{ $item->id == $HIMAKU->candidate_id ? 'selected' : '' }}
+                                                        value="{{ $item->id }}">
+                                                        {{ $item->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('candidate')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    @endif
 
                                 </div>
                                 <!-- /.card-body -->

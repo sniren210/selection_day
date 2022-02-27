@@ -91,7 +91,7 @@ die();
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary ">
             <!-- Brand Logo -->
-            <a href="{{ url('home') }}" class="brand-link" style="border-color: unset;">
+            <a href="{{ url('dashboard') }}" class="brand-link" style="border-color: unset;">
                 <span class="brand-text font-weight-bold"> {{ config('app.name') }}
                 </span>
             </a>
@@ -121,31 +121,66 @@ die();
                                 <p>Dashboard</p>
                             </a>
                         </li>
-                        <li class="nav-header">USER</li>
-                        <li class="nav-item">
-                            <a href="{{ url('user') }}"
-                                class="nav-link {{ Request::segment(1) === 'user' ? 'active' : '' }}">
-                                <i class="fas fa-users"></i>
-                                <p>User</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('user-verified') }}"
-                                class="nav-link {{ Request::segment(1) === 'user-verified' ? 'active' : '' }}">
-                                <i class="fas fa-users"></i>
-                                <p>User Verifikasi</p>
-                            </a>
-                        </li>
+                        @if (auth()->user()->level >= 2)
+                            <li class="nav-header">USER</li>
+                            <li class="nav-item">
+                                <a href="{{ url('user') }}"
+                                    class="nav-link {{ Request::segment(1) === 'user' ? 'active' : '' }}">
+                                    <i class="fas fa-users"></i>
+                                    <p>User</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url('user-verified') }}"
+                                    class="nav-link {{ Request::segment(1) === 'user-verified' ? 'active' : '' }}">
+                                    <i class="fas fa-users"></i>
+                                    <p>User Verifikasi</p>
+                                </a>
+                            </li>
 
-                        <li class="nav-header">KANDIDAT</li>
-                        <li class="nav-item">
-                            <a href="{{ url('candidate') }}"
-                                class="nav-link {{ Request::segment(1) === 'candidate' ? 'active' : '' }}">
-                                <i class="fas fa-users"></i>
-                                <p>Kandidat</p>
-                            </a>
-                        </li>
-                        @if (Auth::user()->level == 1)
+                            <li class="nav-header">KANDIDAT</li>
+                            {{-- <li class="nav-item">
+                                <a href="{{ url('candidate') }}"
+                                    class="nav-link {{ Request::segment(1) === 'candidate' ? 'active' : '' }}">
+                                    <i class="fas fa-users"></i>
+                                    <p>Kandidat</p>
+                                </a>
+                            </li> --}}
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-users"></i>
+                                    <p>
+                                        Kandidat
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ url('candidate?jenis=BEM') }}" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>BEM FEB</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ url('candidate?jenis=DPM') }}" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>DPM FEB</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ url('candidate?jenis=HIMA') }}" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>HIMA MBTI</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ url('candidate?jenis=HIMAKU') }}" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>HIMAKU</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                             <li class="nav-header">Vote</li>
                             <li class="nav-item">
                                 <a href="{{ url('vote-user') }}"

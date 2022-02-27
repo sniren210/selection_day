@@ -65,39 +65,20 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Fakultas</label>
-                                        <select class="custom-select @error('fakultas') is-invalid @enderror"
-                                            name="fakultas">
-                                            <option checked value="">Pilih Fakultas</option>
-                                            <option {{ $candidate->fakultas == 'ekonomi' ? 'selected' : '' }}
-                                                value="ekonomi">
-                                                Ekonomi
+                                        <label>Jenis Kandidat</label>
+                                        <select class="custom-select @error('jenis') is-invalid @enderror" name="jenis">
+                                            <option checked value="">Pilih Jenis</option>
+                                            <option {{ $candidate->jenis == 'BEM' ? 'selected' : '' }} value="BEM">
+                                                BEM FEB
                                             </option>
-                                            <option {{ $candidate->fakultas == 'bisnis' ? 'selected' : '' }}
-                                                value="bisnis">
-                                                Bisnis
+                                            <option {{ $candidate->jenis == 'DPM' ? 'selected' : '' }} value="DPM">DPM FEB
                                             </option>
+                                            <option {{ $candidate->jenis == 'HIMA' ? 'selected' : '' }} value="HIMA">HIMA
+                                                MBTI</option>
+                                            <option {{ $candidate->jenis == 'HIMAKU' ? 'selected' : '' }} value="HIMAKU">
+                                                HIMAKU </option>
                                         </select>
-                                        @error('fakultas')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Jurusan</label>
-                                        <select class="custom-select @error('jurusan') is-invalid @enderror" name="jurusan">
-                                            <option checked value="">Pilih Jurusan</option>
-                                            <option {{ $candidate->jurusan == 'MBTI' ? 'selected' : '' }} value="MBTI">
-                                                MBTI
-                                            </option>
-                                            <option {{ $candidate->jurusan == 'ICT' ? 'selected' : '' }} value="ICT">ICT
-                                            </option>
-                                            <option {{ $candidate->jurusan == 'Akuntansi' ? 'selected' : '' }}
-                                                value="Akuntansi">Akuntansi</option>
-                                        </select>
-                                        @error('jurusan')
+                                        @error('jenis')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

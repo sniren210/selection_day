@@ -16,10 +16,10 @@ class VoteSeeder extends Seeder
     {
         //
         DB::table('votes')->insert(array(
-            [
-                'candidate_id' => '1',
-                'user_id' => '1',
-            ],
+            // [
+            //     'candidate_id' => '1',
+            //     'user_id' => '1',
+            // ],
         ));
     }
 }

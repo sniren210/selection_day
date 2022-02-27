@@ -47,9 +47,10 @@ Route::middleware(['auth', 'userInvalid'])->group(function () {
     Route::resource('/candidate', CandidateController::class,);
 
     Route::get('/vote-user', [VoteController::class, 'index']);
-    Route::get('/vote-user/{vote}/edit', [VoteController::class, 'edit']);
-    Route::put('/vote-user/{vote}', [VoteController::class, 'update']);
-    Route::delete('/vote-user/{vote}', [VoteController::class, 'destroy']);
+    Route::get('/vote-user/{user}/edit', [VoteController::class, 'edit']);
+    Route::put('/vote-user/{user}', [VoteController::class, 'update']);
+    Route::delete('/vote-user/{user}', [VoteController::class, 'destroy']);
+    // Route::delete('/vote-user/{user}', [VoteController::class, 'destroy']);
     // Route::resource('/vote-user', VoteController::class, [
     //     'except' => ['create', 'store'],
     // ]);

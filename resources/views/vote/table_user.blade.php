@@ -63,12 +63,22 @@
                                             <td>{{ $data->vote ? 'Sudah vote' : 'Belum vote' }} </td>
                                             @if (Auth::guard('web')->check())
                                                 <td>
-                                                    @if ($data->vote)
+                                                    @if ($data->vote == 3)
                                                         <button type="button" class="btn badge badge-danger"
                                                             data-toggle="modal"
                                                             data-target="#delete{{ $data->id }}">Cancel vote</button>
-                                                        <a href="{{ url('/vote-user/' . $data->vote_id . '/edit') }}"
-                                                            class="badge badge-success">Edit</a>
+                                                        @if (auth()->user()->level == 3)
+                                                            <a href="{{ url('/vote-user/' . $data->id . '/edit') }}"
+                                                                class="badge badge-success">Edit</a>
+                                                        @endif
+                                                    @elseif ($data->vote == 2 && $data->jurusan == 'ICT')
+                                                        <button type="button" class="btn badge badge-danger"
+                                                            data-toggle="modal"
+                                                            data-target="#delete{{ $data->id }}">Cancel vote</button>
+                                                        @if (auth()->user()->level == 3)
+                                                            <a href="{{ url('/vote-user/' . $data->id . '/edit') }}"
+                                                                class="badge badge-success">Edit</a>
+                                                        @endif
                                                     @else
                                                         <form action="/vote-user/notification/{{ $data->id }}"
                                                             method="POST">
@@ -122,7 +132,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        yakin ingin mengcancel user ini ?
+                        yakin ingin mengcancel {{ $data->email }} ini ?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

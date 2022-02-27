@@ -117,7 +117,7 @@ class ProfileController extends Controller
         User::where('id', $user->id)->update([
             'name' => $request->name ?? $user->name,
             'email' => $request->email ?? $user->email,
-            'password' => $request->password ?? $user->password,
+            'password' => $request->password ?? Hash::make($request->password),
             'user_verified_at' => $user->user_verified_at,
             'ktn' => $request->ktn->originalName ?? $user->ktn,
             'selfi' =>  $request->selfi->originalName ?? $user->selfi,

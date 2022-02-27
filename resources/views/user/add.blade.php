@@ -83,37 +83,23 @@
                                     </div>
 
 
-
-                                    <div class="form-group">
-                                        <label>User Level</label>
-                                        <select class="custom-select @error('level') is-invalid @enderror" name="level">
-                                            <option checked value="">Pilih user level</option>
-                                            <option value="0">User</option>
-                                            <option value="1">Admin</option>
-                                            <option value="2">Saksi</option>
-                                        </select>
-                                        @error('level')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Fakultas</label>
-                                        <select class="custom-select @error('fakultas') is-invalid @enderror"
-                                            name="fakultas">
-                                            <option checked value="">Pilih Fakultas</option>
-                                            <option value="ekonomi">Ekonomi</option>
-                                            <option value="bisnis">Bisnis</option>
-                                            <option value="lainnya">Lainnya</option>
-                                        </select>
-                                        @error('fakultas')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                    @if (auth()->user()->level == 3)
+                                        <div class="form-group">
+                                            <label>User Level</label>
+                                            <select class="custom-select @error('level') is-invalid @enderror" name="level">
+                                                <option checked value="">Pilih user level</option>
+                                                <option value="0">User</option>
+                                                <option value="1">Saksi</option>
+                                                <option value="2">Admin</option>
+                                                <option value="3">SuperAdmin</option>
+                                            </select>
+                                            @error('level')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    @endif
 
                                     <div class="form-group">
                                         <label>Jurusan</label>
@@ -122,7 +108,6 @@
                                             <option value="MBTI">MBTI</option>
                                             <option value="ICT">ICT</option>
                                             <option value="Akuntansi">Akuntansi</option>
-                                            <option value="Lainnya">Lainnya</option>
                                         </select>
                                         @error('jurusan')
                                             <span class="invalid-feedback" role="alert">

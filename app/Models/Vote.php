@@ -16,15 +16,20 @@ class Vote extends Model
         'user_id'
     ];
 
-    public function vote(): BelongsTo
+    public function vote_candidate(): BelongsTo
     {
-        return $this->belongsTo(Vote::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function user(): HasOne
-    {
-        return $this->hasOne(User::class, 'vote_id');
-    }
+    // public function vote(): BelongsTo
+    // {
+    //     return $this->belongsTo(Vote::class, 'user_id');
+    // }
+
+    // public function user(): HasOne
+    // {
+    //     return $this->hasOne(User::class, 'vote_id');
+    // }
 
     /**
      * Get the user associated with the Vote

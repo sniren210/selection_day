@@ -26,7 +26,7 @@
                             <div class="info-box-content">
                                 <span class="info-box-text">Jumlah yg Vote</span>
                                 <span class="info-box-number">
-                                    {{ count($vote) }}
+                                    {{-- {{ count($vote) }} --}}
                                 </span>
                             </div>
                             <!-- /.info-box-content -->
@@ -41,7 +41,7 @@
                             <div class="info-box-content">
                                 <span class="info-box-text">Jumlah Kandidat</span>
                                 <span class="info-box-number">
-                                    {{ count($candidate) }}
+                                    {{-- {{ count($candidate) }} --}}
 
                                 </span>
                             </div>
@@ -95,7 +95,7 @@
                         <!-- DONUT CHART -->
                         <div class="card card-danger">
                             <div class="card-header">
-                                <h3 class="card-title">Persentasi hasil vote</h3>
+                                <h3 class="card-title">Persentasi hasil vote BEM</h3>
 
                             </div>
                             <div class="card-body">
@@ -107,7 +107,7 @@
                                         <div class=""></div>
                                     </div>
                                 </div>
-                                <canvas id="donutChart"
+                                <canvas id="donutChartBEM"
                                     style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 487px;"
                                     width="487" height="250" class="chartjs-render-monitor"></canvas>
                             </div>
@@ -120,7 +120,7 @@
                     <div class="col-md-6">
                         <div class="card card-success">
                             <div class="card-header">
-                                <h3 class="card-title">Persentasi hasil vote</h3>
+                                <h3 class="card-title">Persentasi hasil vote DPM</h3>
 
                             </div>
                             <div class="card-body">
@@ -132,7 +132,59 @@
                                         <div class=""></div>
                                     </div>
                                 </div>
-                                <canvas id="pieChart"
+                                <canvas id="donutChartDPM"
+                                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 487px;"
+                                    width="487" height="250" class="chartjs-render-monitor"></canvas>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <!-- DONUT CHART -->
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">Persentasi hasil vote HIMA</h3>
+
+                            </div>
+                            <div class="card-body">
+                                <div class="chartjs-size-monitor">
+                                    <div class="chartjs-size-monitor-expand">
+                                        <div class=""></div>
+                                    </div>
+                                    <div class="chartjs-size-monitor-shrink">
+                                        <div class=""></div>
+                                    </div>
+                                </div>
+                                <canvas id="donutChartHIMA"
+                                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 487px;"
+                                    width="487" height="250" class="chartjs-render-monitor"></canvas>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card card-warning">
+                            <div class="card-header">
+                                <h3 class="card-title">Persentasi hasil vote HIMAKU</h3>
+
+                            </div>
+                            <div class="card-body">
+                                <div class="chartjs-size-monitor">
+                                    <div class="chartjs-size-monitor-expand">
+                                        <div class=""></div>
+                                    </div>
+                                    <div class="chartjs-size-monitor-shrink">
+                                        <div class=""></div>
+                                    </div>
+                                </div>
+                                <canvas id="donutChartHIMAKU"
                                     style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 487px;"
                                     width="487" height="250" class="chartjs-render-monitor"></canvas>
                             </div>
@@ -157,13 +209,13 @@
                             <!-- /.card-header -->
                             <div class="card-body p-0">
                                 <ul class="users-list clearfix">
-                                    @foreach ($candidate as $item)
+                                    {{-- @foreach ($candidate as $item)
                                         <li>
                                             <img src="./img/candidate/{{ $item->image }}" alt="User Image">
                                             <a class="users-list-name" href="#">{{ $item->name }} </a>
                                             <span class="users-list-date">{{ $item->fakultas }} </span>
                                         </li>
-                                    @endforeach
+                                    @endforeach --}}
                                 </ul>
                                 <!-- /.users-list -->
                             </div>
@@ -186,13 +238,40 @@
 
     <script>
         $(function() {
-            var candidate = <?php echo json_encode($candidate); ?>;
-            var percentage = <?php echo json_encode($percentage); ?>;
-            var labels = [];
+            var candidateBEM = <?php echo json_encode($candidate_BEM); ?>;
+            var percentageBEM = <?php echo json_encode($percentage_BEM); ?>;
+            var labelsBEM = [];
 
 
-            candidate.forEach(data => {
-                labels.push(data.name)
+            candidateBEM.forEach(data => {
+                labelsBEM.push(data.name)
+            });
+
+            var candidateDPM = <?php echo json_encode($candidate_DPM); ?>;
+            var percentageDPM = <?php echo json_encode($percentage_DPM); ?>;
+            var labelsDPM = [];
+
+
+            candidateDPM.forEach(data => {
+                labelsDPM.push(data.name)
+            });
+
+            var candidateHIMA = <?php echo json_encode($candidate_HIMA); ?>;
+            var percentageHIMA = <?php echo json_encode($percentage_HIMA); ?>;
+            var labelsHIMA = [];
+
+
+            candidateHIMA.forEach(data => {
+                labelsHIMA.push(data.name)
+            });
+
+            var candidateHIMAKU = <?php echo json_encode($candidate_HIMAKU); ?>;
+            var percentageHIMAKU = <?php echo json_encode($percentage_HIMAKU); ?>;
+            var labelsHIMAKU = [];
+
+
+            candidateHIMAKU.forEach(data => {
+                labelsHIMAKU.push(data.name)
             });
             /* ChartJS
              * -------
@@ -205,11 +284,12 @@
             //- DONUT CHART -
             //-------------
             // Get context with jQuery - using jQuery's .get() method.
-            var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
-            var donutData = {
-                labels: labels,
+            var donutChartCanvasBEM = $('#donutChartBEM').get(0).getContext('2d')
+
+            var donutDataBEM = {
+                labels: labelsBEM,
                 datasets: [{
-                    data: percentage,
+                    data: percentageBEM,
                     backgroundColor: [
                         'salmon',
                         'aqua',
@@ -225,6 +305,98 @@
                     ],
                 }]
             }
+
+            var donutChartCanvasDPM = $('#donutChartDPM').get(0).getContext('2d')
+            var donutDataDPM = {
+                labels: labelsDPM,
+                datasets: [{
+                    data: percentageDPM,
+                    backgroundColor: [
+                        'tomato',
+                        'lime',
+                        'aqua',
+                        'salmon',
+                        'teal',
+                        'pink',
+                        'royalblue',
+                        'burlywood',
+                        'lavender',
+                        'grey',
+                        'violet',
+                    ],
+                }]
+            }
+
+            var donutChartCanvasHIMA = $('#donutChartHIMA').get(0).getContext('2d')
+            var donutDataHIMA = {
+                labels: labelsHIMA,
+                datasets: [{
+                    data: percentageHIMA,
+                    backgroundColor: [
+                        'pink',
+                        'aqua',
+                        'teal',
+                        'salmon',
+                        'royalblue',
+                        'lime',
+                        'grey',
+                        'burlywood',
+                        'lavender',
+                        'violet',
+                        'tomato',
+                    ],
+                }]
+            }
+
+            var donutChartCanvasHIMAKU = $('#donutChartHIMAKU').get(0).getContext('2d')
+            var donutDataHIMAKU = {
+                labels: labelsHIMAKU,
+                datasets: [{
+                    data: percentageHIMAKU,
+                    backgroundColor: [
+                        'lime',
+                        'teal',
+                        'salmon',
+                        'pink',
+                        'lavender',
+                        'aqua',
+                        'grey',
+                        'burlywood',
+                        'violet',
+                        'royalblue',
+                        'tomato',
+                    ],
+                }]
+            }
+
+
+            //Create pie or douhnut chart
+            // You can switch between pie and douhnut using the method below.
+            new Chart(donutChartCanvasBEM, {
+                type: 'doughnut',
+                data: donutDataBEM,
+                options: donutOptions
+            })
+
+            new Chart(donutChartCanvasDPM, {
+                type: 'doughnut',
+                data: donutDataDPM,
+                options: donutOptions
+            })
+
+            new Chart(donutChartCanvasHIMA, {
+                type: 'doughnut',
+                data: donutDataHIMA,
+                options: donutOptions
+            })
+
+            new Chart(donutChartCanvasHIMAKU, {
+                type: 'doughnut',
+                data: donutDataHIMAKU,
+                options: donutOptions
+            })
+
+
             var donutOptions = {
                 maintainAspectRatio: false,
                 responsive: true,
@@ -237,32 +409,6 @@
                     }
                 }
             }
-            //Create pie or douhnut chart
-            // You can switch between pie and douhnut using the method below.
-            new Chart(donutChartCanvas, {
-                type: 'doughnut',
-                data: donutData,
-                options: donutOptions
-            })
-
-            //-------------
-            //- PIE CHART -
-            //-------------
-            // Get context with jQuery - using jQuery's .get() method.
-            var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-            var pieData = donutData;
-            var pieOptions = {
-                maintainAspectRatio: false,
-                responsive: true,
-            }
-            //Create pie or douhnut chart
-            // You can switch between pie and douhnut using the method below.
-            new Chart(pieChartCanvas, {
-                type: 'pie',
-                data: pieData,
-                options: pieOptions
-            })
-
 
         })
     </script>
