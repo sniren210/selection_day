@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCandidateRequest;
 use App\Http\Requests\UpdateCandidateRequest;
 use App\Models\Vote;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 class CandidateController extends Controller
@@ -26,6 +27,17 @@ class CandidateController extends Controller
         'jenis' => ['required', 'string'],
         'image' => ['file', 'image', 'mimes:jpeg,png,jpg'],
     ];
+
+    public function __construct(Request $request)
+    {
+        $this->middleware(function ($request, $next) {
+            if (Auth::user()->level <= 1) {
+                return redirect('/dashboard');
+            }
+
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      *

@@ -121,7 +121,6 @@ class ProfileController extends Controller
             'user_verified_at' => $user->user_verified_at,
             'ktn' => $request->ktn->originalName ?? $user->ktn,
             'selfi' =>  $request->selfi->originalName ?? $user->selfi,
-            'vote_id' => $user->vote_id,
             'level' => $request->level,
         ]);
 

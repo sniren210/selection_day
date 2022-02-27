@@ -7,7 +7,9 @@ use App\Models\User;
 use App\Models\Vote;
 use App\Notifications\DeniedNotification;
 use App\Notifications\VerifyNotification;
+use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
@@ -28,6 +30,17 @@ class UserController extends Controller
         'ktn' => ['file', 'image', 'mimes:jpeg,png,jpg'],
         'selfi' => ['file', 'image', 'mimes:jpeg,png,jpg'],
     ];
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if (Auth::user()->level <= 1) {
+                return redirect('/dashboard');
+            }
+
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      *
@@ -68,7 +81,6 @@ class UserController extends Controller
             'user_verified_at' => date('Y-m-d h:i:s'),
             'ktn' => $user->ktn,
             'selfi' => $user->selfi,
-            'vote_id' => $user->vote_id,
         ]);
 
         return redirect('user-verified')->with('status', 'user berhasil di verifikasi.');
@@ -251,7 +263,6 @@ class UserController extends Controller
             'user_verified_at' => $user->user_verified_at,
             'ktn' => $request->ktn->originalName ?? $user->ktn,
             'selfi' =>  $request->selfi->originalName ?? $user->selfi,
-            'vote_id' => $user->vote_id,
             'level' => $request->level,
         ]);
 

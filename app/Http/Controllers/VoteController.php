@@ -20,6 +20,7 @@ class VoteController extends Controller
         'BEM' => ['required'],
         'DPM' => ['required'],
     ];
+
     /**
      * Display a listing of the resource.
      *
@@ -27,6 +28,12 @@ class VoteController extends Controller
      */
     public function index()
     {
+        if (app('auth')->user()->level <= 1) {
+            return redirect(
+                'dashboard'
+            );
+        }
+
         $data = [
             'user' => User::whereNotNull('user_verified_at')->get(),
         ];
@@ -157,6 +164,12 @@ class VoteController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        if (app('auth')->user()->level <= 2) {
+            return redirect(
+                'vote-user'
+            );
+        }
+
         $request->validate(
             $this->validasiEdit,
             $this->messages
@@ -205,6 +218,12 @@ class VoteController extends Controller
      */
     public function destroy(User $user)
     {
+        if (app('auth')->user()->level <= 1) {
+            return redirect(
+                'dashboard'
+            );
+        }
+
         vote::where('user_id', '=', $user->id)->delete();
 
         User::where('id', $user->id)->update([
@@ -218,6 +237,13 @@ class VoteController extends Controller
 
     public function notifikasi(User $user)
     {
+        if (app('auth')->user()->level <= 1) {
+            return redirect(
+                'dashboard'
+
+            );
+        }
+
         $user->notify(new VoteNotification($user));
 
         return redirect('vote-user')->with('status', 'berhasil memperingatkan user.');
