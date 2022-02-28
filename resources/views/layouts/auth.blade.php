@@ -10,8 +10,8 @@
     <meta http-equiv="Copyright" content="Sniren-ren">
     <meta name="author" content="Sniren-ren">
 
-    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('img/favicon-16x16.png')}}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('img/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/favicon-32x32.png') }}">
 
     <title>{{ config('app.name') }} | {{ $title }}</title>
 
@@ -94,7 +94,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('logout') }}" class="nav-link"
                                     onclick="event.preventDefault();
-                                                                                                                                                                                                                         document.getElementById('logout-form').submit();">Logout</a>
+                                                                                                                                                                                                                             document.getElementById('logout-form').submit();">Logout</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                     class="d-none">
                                     @csrf
@@ -114,7 +114,7 @@
         <footer class="main-footer">
             <div class="container">
 
-                <strong>Copyright &copy; 2021 <a href="mailto:femirafeb@gmail.com">FemiraFeb</a>.</strong>
+                <strong>Copyright &copy; 2021 <a href="mailto:femirafeb@gmail.com">PemiraFeb</a>.</strong>
                 All rights reserved.
             </div>
         </footer>

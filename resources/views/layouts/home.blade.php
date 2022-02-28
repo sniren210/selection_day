@@ -15,8 +15,8 @@ die();
     <meta http-equiv="Copyright" content="Sniren-ren">
     <meta name="author" content="Sniren-ren">
 
-    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('img/favicon-16x16.png')}}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('img/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/favicon-32x32.png') }}">
 
     <title>{{ config('app.name') }} | Dashboard</title>
 
@@ -256,7 +256,7 @@ die();
         @yield('content')
 
         <footer class="main-footer">
-            <strong>Copyright &copy; 2021 <a href="mailto:fintch.team@gmail.com">Fintch tech</a>.</strong>
+            <strong>Copyright &copy; 2021 <a href="mailto:femirafeb@gmail.com">PemiraFeb</a>.</strong>
             All rights reserved.
         </footer>
     </div>

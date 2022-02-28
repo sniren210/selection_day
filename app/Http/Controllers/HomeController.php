@@ -39,7 +39,6 @@ class HomeController extends Controller
             } else if ($value->candidate->jenis == 'HIMA') {
                 array_push($data['vote_HIMA'], $value);
             } else if ($value->candidate->jenis == 'HIMAKU') {
-                dd($value);
                 array_push($data['vote_HIMAKU'], $value);
             }
         }

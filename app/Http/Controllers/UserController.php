@@ -25,10 +25,7 @@ class UserController extends Controller
 
     protected $validasiEdit = [
         'name' => ['required'],
-        'email' => ['required'],
         'password' => ['confirmed'],
-        'ktn' => ['file', 'image', 'mimes:jpeg,png,jpg'],
-        'selfi' => ['file', 'image', 'mimes:jpeg,png,jpg'],
     ];
 
     public function __construct()
@@ -189,6 +186,10 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        if ($user->level > auth()->user()->level) {
+            return redirect('user');
+        }
+
         $data = [
             'user' => $user,
         ];
@@ -205,6 +206,10 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        if ($user->level > auth()->user()->level) {
+            return redirect('user');
+        }
+
         $request->validate(
             $this->validasiEdit,
             $this->messages
@@ -259,11 +264,11 @@ class UserController extends Controller
         User::where('id', $user->id)->update([
             'name' => $request->name ?? $user->name,
             'email' => $request->email ?? $user->email,
-            'password' => $request->password ?? Hash::make($request->password),
+            'password' =>  isset($request->password) ? Hash::make($request->password) :  $user->password,
             'user_verified_at' => $user->user_verified_at,
             'ktn' => $request->ktn->originalName ?? $user->ktn,
             'selfi' =>  $request->selfi->originalName ?? $user->selfi,
-            'level' => $request->level,
+            'level' => $request->level ?? $user->level,
         ]);
 
         return redirect(

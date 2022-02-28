@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Candidate;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
@@ -13,17 +14,15 @@ class ProfileController extends Controller
     protected $validasi = [
         'name' => ['required', 'string'],
         'email' => ['required', 'string', 'unique:users,email'],
-        'password' => ['required', 'confirmed', 'string'],
+        'password' => ['required', 'string', 'min:8', 'confirmed'],
         'ktn' => ['required', 'file', 'image', 'mimes:jpeg,png,jpg'],
         'selfi' => ['required', 'file', 'image', 'mimes:jpeg,png,jpg'],
     ];
 
     protected $validasiEdit = [
         'name' => ['required'],
-        'email' => ['required'],
+        'password_old' => ['required', 'string', 'min:8',],
         'password' => ['confirmed'],
-        'ktn' => ['file', 'image', 'mimes:jpeg,png,jpg'],
-        'selfi' => ['file', 'image', 'mimes:jpeg,png,jpg'],
     ];
     /**
      * Display a listing of the resource.
@@ -68,60 +67,66 @@ class ProfileController extends Controller
             $this->messages
         );
 
-        if ($request->ktn) {
-
-            if ($request->ktn->originalName = 'default.png') {
-                $request->ktn->originalName =
-                    time() . '_' . $request->ktn->getClientOriginalName();
-
-                $request->ktn->move(
-                    'img/ktn',
-                    $request->ktn->originalName
-                );
-            } else {
-                File::delete('img/ktn/' . $user->ktn->originalName);
-
-                $request->ktn->originalName =
-                    time() . '_' . $request->ktn->getClientOriginalName();
-
-                $request->ktn->move(
-                    'img/ktn',
-                    $request->ktn->originalName
-                );
-            }
+        if (!Hash::check($request->password_old, auth()->user()->password)) {
+            return redirect(
+                '/user/edit'
+            )->with('failed', 'Password yang anda masukan salah.');
         }
 
-        if ($request->selfi) {
+        // if ($request->ktn) {
 
-            if ($request->selfi->originalName = 'default.png') {
-                $request->selfi->originalName =
-                    time() . '_' . $request->selfi->getClientOriginalName();
+        //     if ($request->ktn->originalName = 'default.png') {
+        //         $request->ktn->originalName =
+        //             time() . '_' . $request->ktn->getClientOriginalName();
 
-                $request->selfi->move(
-                    'img/profile',
-                    $request->selfi->originalName
-                );
-            } else {
-                File::delete('img/profile/' . $user->selfi->originalName);
+        //         $request->ktn->move(
+        //             'img/ktn',
+        //             $request->ktn->originalName
+        //         );
+        //     } else {
+        //         File::delete('img/ktn/' . $user->ktn->originalName);
 
-                $request->selfi->originalName =
-                    time() . '_' . $request->selfi->getClientOriginalName();
+        //         $request->ktn->originalName =
+        //             time() . '_' . $request->ktn->getClientOriginalName();
 
-                $request->selfi->move(
-                    'img/profile',
-                    $request->selfi->originalName
-                );
-            }
-        }
+        //         $request->ktn->move(
+        //             'img/ktn',
+        //             $request->ktn->originalName
+        //         );
+        //     }
+        // }
+
+        // if ($request->selfi) {
+
+        //     if ($request->selfi->originalName = 'default.png') {
+        //         $request->selfi->originalName =
+        //             time() . '_' . $request->selfi->getClientOriginalName();
+
+        //         $request->selfi->move(
+        //             'img/profile',
+        //             $request->selfi->originalName
+        //         );
+        //     } else {
+        //         File::delete('img/profile/' . $user->selfi->originalName);
+
+        //         $request->selfi->originalName =
+        //             time() . '_' . $request->selfi->getClientOriginalName();
+
+        //         $request->selfi->move(
+        //             'img/profile',
+        //             $request->selfi->originalName
+        //         );
+        //     }
+        // }
 
         User::where('id', $user->id)->update([
             'name' => $request->name ?? $user->name,
-            'email' => $request->email ?? $user->email,
-            'password' => $request->password ?? Hash::make($request->password),
-            'user_verified_at' => $user->user_verified_at,
-            'ktn' => $request->ktn->originalName ?? $user->ktn,
-            'selfi' =>  $request->selfi->originalName ?? $user->selfi,
-            'level' => $request->level,
+            // 'email' => $request->email ?? $user->email,
+            'password' =>  isset($request->password) ? Hash::make($request->password) :  $user->password,
+            // 'user_verified_at' => $user->user_verified_at,
+            // 'ktn' => $request->ktn->originalName ?? $user->ktn,
+            // 'selfi' =>  $request->selfi->originalName ?? $user->selfi,
+            // 'level' => $request->level ?? $user->level,
         ]);
 
         return redirect(

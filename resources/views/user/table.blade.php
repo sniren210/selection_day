@@ -62,7 +62,7 @@
                                         <th>No</th>
                                         <th>Name</th>
                                         <th>Email</th>
-                                        <th>Vote</th>
+                                        <th>Jurusan</th>
                                         <th>Level</th>
                                         @if (Auth::guard('web')->check())
                                             <th>Aksi</th>
@@ -75,15 +75,15 @@
                                             <td>{{ $loop->iteration }} </td>
                                             <td>{{ $data->name }} </td>
                                             <td>{{ $data->email }} </td>
-                                            <td>{{ $data->vote ? 'Sudah vote' : 'Belum vote' }} </td>
+                                            <td>{{ $data->jurusan }} </td>
                                             <td>
                                                 @php
                                                     if ($data->level == 0) {
                                                         echo 'User';
                                                     } elseif ($data->level == 1) {
-                                                        echo 'Admin';
-                                                    } else {
                                                         echo 'Saksi';
+                                                    } else {
+                                                        echo 'Admin';
                                                     }
                                                 @endphp
                                             </td>
@@ -91,8 +91,10 @@
                                                 <td>
                                                     <a href="{{ url('/user/' . $data->id) }}"
                                                         class="badge badge-info">Show</a>
-                                                    <a href="{{ url('/user/' . $data->id . '/edit') }}"
-                                                        class="badge badge-success">Edit</a>
+                                                    @if ($data->level < auth()->user()->level || auth()->user()->level == 3)
+                                                        <a href="{{ url('/user/' . $data->id . '/edit') }}"
+                                                            class="badge badge-success">Edit</a>
+                                                    @endif
                                                     <button type="button" class="btn badge badge-danger" data-toggle="modal"
                                                         data-target="#delete{{ $data->id }}">Hapus</button>
                                                 </td>
@@ -105,7 +107,7 @@
                                         <th>No</th>
                                         <th>Name</th>
                                         <th>Email</th>
-                                        <th>Vote</th>
+                                        <th>Jurusan</th>
                                         <th>Level</th>
                                         @if (Auth::guard('web')->check())
                                             <th>Aksi</th>

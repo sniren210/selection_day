@@ -14,21 +14,20 @@
                                 <h3 class="card-title">User edit</h3>
                             </div>
                             <!-- /.card-header -->
+
+                            @if (session('failed'))
+                                <div class="content mt-2">
+                                    <div class="alert alert-danger">
+                                        {{ session('failed') }}
+                                    </div>
+                                </div>
+                            @endif
+
                             <!-- form start -->
                             <form method="POST" action="/user/edit/{{ $user->id }}" enctype="multipart/form-data">
                                 @csrf
                                 @method('put')
                                 <div class="card-body">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Email</label>
-                                        <input type="text" class="form-control @error('email') is-invalid @enderror"
-                                            id="exampleInputEmail1" name="email" value="{{ $user->email }}">
-                                        @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Nama</label>
                                         <input type="text" class="form-control @error('name') is-invalid @enderror"
@@ -38,6 +37,25 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="password_old">Password Lama</label>
+                                        <div class="input-group mb-3">
+
+                                            <input type="password"
+                                                class="form-control @error('password_old') is-invalid @enderror"
+                                                id="password_old" name="password_old">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" id="eye_pass_old" onclick="toggle3()"><i
+                                                        class="fas fa-eye"></i></span>
+                                            </div>
+                                            @error('password_old')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
 
                                     <div class="form-group">
@@ -51,127 +69,21 @@
                                                 <span class="input-group-text" id="eye_pass" onclick="toggle1()"><i
                                                         class="fas fa-eye"></i></span>
                                             </div>
+                                            @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
-                                        @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="password_confirmation">Confirm Password</label>
+                                        <label for="password_confirmation">Konfirmasi Password</label>
                                         <div class="input-group mb-3">
                                             <input type="password" class="form-control " id="password_confirmation"
                                                 name="password_confirmation">
                                             <div class="input-group-append">
                                                 <span class="input-group-text" id="eye_pass_con" onclick="toggle2()"><i
                                                         class="fas fa-eye"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>User Level</label>
-                                        <select class="custom-select @error('level') is-invalid @enderror" name="level">
-                                            <option checked value="">Pilih user level</option>
-                                            <option {{ $user->level == 0 ? 'selected' : '' }} value="0">User</option>
-                                            <option {{ $user->level == 1 ? 'selected' : '' }} value="1">Saksi</option>
-                                            @if (auth()->user()->level == 3)
-                                                <option {{ $user->level == 2 ? 'selected' : '' }} value="2">Admin</option>
-                                            @endif
-
-                                            @if (auth()->user()->level == 3)
-                                                <option {{ $user->level == 3 ? 'selected' : '' }} value="3">SuperAdmin
-                                                </option>
-                                            @endif
-                                        </select>
-                                        @error('level')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Jurusan</label>
-                                        <select class="custom-select @error('jurusan') is-invalid @enderror" name="jurusan">
-                                            <option checked value="">Pilih Jurusan</option>
-                                            <option {{ $user->jurusan == 'MBTI' ? 'selected' : '' }} value="MBTI">MBTI
-                                            </option>
-                                            <option {{ $user->jurusan == 'ICT' ? 'selected' : '' }} value="ICT">ICT
-                                            </option>
-                                            <option {{ $user->jurusan == 'Akuntansi' ? 'selected' : '' }}
-                                                value="Akuntansi">Akuntansi</option>
-                                        </select>
-                                        @error('jurusan')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-
-                                            <div class="form-group">
-                                                <label for="exampleInputFile">Upload KTN</label>
-                                                <div class="card">
-                                                    <img class="img card-img-top" id="img-ktn"
-                                                        src="{{ asset('img/ktn') }}/{{ $user->ktn }} " alt="Photo"
-                                                        style="width:50%;margin:auto;">
-
-                                                    <div class="card-body">
-
-                                                        <div class="input-group">
-                                                            <div class="custom-control custom-file flex-wrap">
-                                                                <input type="file"
-                                                                    class="custom-file-input  @error('ktn') is-invalid @enderror"
-                                                                    id="exampleInputFile" onchange="readURLKtn(this);"
-                                                                    name="ktn">
-                                                                <label id="label-ktn" class="custom-file-label"
-                                                                    for="exampleInputFile">Choose
-                                                                    file</label>
-                                                                @error('ktn')
-                                                                    <span class="invalid-feedback" role="alert">
-                                                                        <strong>{{ $message }}</strong>
-                                                                    </span>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-
-                                            <div class="form-group">
-                                                <label for="exampleInputFile">Upload Selfi</label>
-                                                <div class="card">
-                                                    <img class="img card-img-top" id="img-selfi"
-                                                        src="{{ asset('img/profile') }}/{{ $user->selfi }} "
-                                                        alt="Photo" style="width:50%;margin:auto;">
-
-                                                    <div class="card-body">
-
-                                                        <div class="input-group">
-                                                            <div class="custom-control custom-file flex-wrap">
-                                                                <input type="file"
-                                                                    class="custom-file-input  @error('selfi') is-invalid @enderror"
-                                                                    id="exampleInputFile" onchange="readURLSelfi(this);"
-                                                                    name="selfi">
-                                                                <label id="label-selfi" class="custom-file-label"
-                                                                    for="exampleInputFile">Choose
-                                                                    file</label>
-                                                                @error('selfi')
-                                                                    <span class="invalid-feedback" role="alert">
-                                                                        <strong>{{ $message }}</strong>
-                                                                    </span>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -200,6 +112,7 @@
     <script type="text/javascript">
         var state1 = false;
         var state2 = false;
+        var state3 = false;
 
         function toggle1() {
             if (state1) {
@@ -222,6 +135,18 @@
                 document.getElementById("password_confirmation").setAttribute("type", "text");
                 document.getElementById("eye_pass_con").style.color = "#5887ef";
                 state2 = true;
+            }
+        }
+
+        function toggle3() {
+            if (state3) {
+                document.getElementById("password_old").setAttribute("type", "password");
+                document.getElementById("eye_pass_old").style.color = "#7a797e";
+                state3 = false;
+            } else {
+                document.getElementById("password_old").setAttribute("type", "text");
+                document.getElementById("eye_pass_old").style.color = "#5887ef";
+                state3 = true;
             }
         }
 

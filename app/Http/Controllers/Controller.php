@@ -20,6 +20,8 @@ class Controller extends BaseController
         'confirmed' => 'konfirmasi tidak cocok',
         'unique' => 'sudah ada',
         'integer' => 'harus input angka',
-        'boolean' => 'format input tidak valid'
+        'boolean' => 'format input tidak valid',
+        'min' => 'minimal 8 karakter',
+        'max' => 'maksimal 255 karakter',
     ];
 }

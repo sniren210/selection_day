@@ -35,7 +35,7 @@ class VoteController extends Controller
         }
 
         $data = [
-            'user' => User::whereNotNull('user_verified_at')->get(),
+            'user' => User::where('level', '=', '0')->whereNotNull('user_verified_at')->get(),
         ];
 
         return view('vote.table_user', $data);
@@ -43,6 +43,12 @@ class VoteController extends Controller
 
     public function vote()
     {
+        if (app('auth')->user()->level != 0) {
+            return redirect(
+                'dashboard'
+            );
+        }
+
 
         if (app('auth')->user()->vote == 3) {
             return view('vote_finish');
@@ -88,6 +94,11 @@ class VoteController extends Controller
      */
     public function vote_store(Request $request)
     {
+        if (app('auth')->user()->level != 0) {
+            return redirect(
+                'dashboard'
+            );
+        }
 
         $request->validate(
             $this->validasi,

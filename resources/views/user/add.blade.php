@@ -32,7 +32,7 @@
                                 @method('post')
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Email</label>
+                                        <label for="exampleInputEmail1">Email sesuai dengan Email Telkom</label>
                                         <input type="text" class="form-control @error('email') is-invalid @enderror"
                                             id="exampleInputEmail1" name="email" value="{{ old('email') }}">
                                         @error('email')
@@ -42,7 +42,8 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Nama</label>
+                                        <label for="exampleInputEmail1">Nama lengkap sesuai dengan yang tertera dalam
+                                            KTN</label>
                                         <input type="text" class="form-control @error('name') is-invalid @enderror"
                                             id="exampleInputEmail1" name="name" value="{{ old('name') }}">
                                         @error('name')
@@ -63,15 +64,15 @@
                                                 <span class="input-group-text" id="eye_pass" onclick="toggle1()"><i
                                                         class="fas fa-eye"></i></span>
                                             </div>
+                                            @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
-                                        @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="password_confirmation">Confirm Password</label>
+                                        <label for="password_confirmation">Konfirmasi Password</label>
                                         <div class="input-group mb-3">
                                             <input type="password" class="form-control " id="password_confirmation"
                                                 name="password_confirmation">
@@ -120,7 +121,7 @@
                                         <div class="col-md-6">
 
                                             <div class="form-group">
-                                                <label for="exampleInputFile">Upload KTM/KTM Digital</label>
+                                                <label for="exampleInputFile">Upload KTN/KTN Digital</label>
                                                 <div class="card">
                                                     <img class="img card-img-top" id="img-ktn"
                                                         src="/img/default-150x150.png" alt="Photo"
@@ -152,7 +153,7 @@
                                         <div class="col-md-6">
 
                                             <div class="form-group">
-                                                <label for="exampleInputFile">Upload foto selfie dengan KTM</label>
+                                                <label for="exampleInputFile">Upload foto selfie dengan KTN</label>
                                                 <div class="card">
                                                     <img class="img card-img-top" id="img-selfi"
                                                         src="/img/default-150x150.png" alt="Photo"

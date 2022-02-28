@@ -19,6 +19,7 @@ class userInvalid
         if ($request->user()->level == 0) {
             return redirect('/');
         }
+
         return $next($request);
     }
 }

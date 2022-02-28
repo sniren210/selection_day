@@ -44,12 +44,12 @@
                                             <span class="input-group-text" id="eye" onclick="toggle()"><i
                                                     class="fas fa-eye"></i></span>
                                         </div>
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
                                 </div>
 
                             </div>
